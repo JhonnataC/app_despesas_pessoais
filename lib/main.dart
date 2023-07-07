@@ -23,8 +23,8 @@ class DespesasApp extends StatelessWidget {
       supportedLocales: const [Locale('pt', 'BR')],
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.red,
-          secondary: Colors.redAccent,
+          primary: Colors.blue,
+          secondary: Colors.blueGrey,
         ),
         appBarTheme: theme.appBarTheme.copyWith(
           titleTextStyle: const TextStyle(
@@ -40,6 +40,31 @@ class DespesasApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
+          titleMedium: const TextStyle(
+            fontFamily: 'Opensans',
+            fontSize: 15,
+            color: Colors.black,            
+          ),
+          titleSmall: const TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 15,
+            color: Colors.grey,
+          ),
+          // labelLarge: const TextStyle(
+          //   fontFamily: 'OpenSans',
+          //   fontSize: 15,
+          //   color: Colors.black,
+          // ),
+          // labelMedium: const TextStyle(
+          //   fontFamily: 'OpenSans',
+          //   fontSize: 15,
+          //   color: Colors.grey,
+          // ),
+          // labelSmall: const TextStyle(
+          //   fontFamily: 'OpenSans',
+          //   fontSize: 13,
+          //   color: Colors.grey,
+          // ),
         ),
       ),
     );

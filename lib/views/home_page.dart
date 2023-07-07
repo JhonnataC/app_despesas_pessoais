@@ -16,23 +16,35 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 't0',
+    //   title: 'Conta antiga',
+    //   value: 500.50,
+    //   date: DateTime.now().subtract(const Duration(days: 33)),
+    // ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Novo tênis',
+    //   value: 37,
+    //   date: DateTime.now().subtract(const Duration(days: 1)),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Gta 6',
+    //   value: 400,
+    //   date: DateTime.now().subtract(const Duration(days: 2)),
+    // ),
+    // Transaction(
+    //   id: 't3',
+    //   title: 'Fatura do mês',
+    //   value: 1000,
+    //   date: DateTime.now().subtract(const Duration(days: 4)),
+    // ),
     Transaction(
-      id: 't0',
-      title: 'Conta antiga',
-      value: 500.50,
-      date: DateTime.now().subtract(const Duration(days: 33)),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Novo tênis',
-      value: 370.50,
-      date: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Gta 6',
-      value: 400,
-      date: DateTime.now().subtract(const Duration(days: 2)),
+      id: 't4',
+      title: 'Coxinha',
+      value: 4,
+      date: DateTime.now().subtract(const Duration(days: 0)),
     )
   ];
 
@@ -46,12 +58,12 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -59,6 +71,12 @@ class _HomePageState extends State<HomePage> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   _openTrasactionFormModal(BuildContext context) {
@@ -72,6 +90,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  _clearTransactions() {
+    setState(() {
+      _transactions.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +105,29 @@ class _HomePageState extends State<HomePage> {
           PopupMenuButton(
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: const Text('Limpar lista de compras'),
-                onTap: () {},
-              ),
+                  child: const Text('Limpar lista de compras'),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return AlertDialog(
+                            title: const Text(
+                                'Deseja realmente excluir todas as transações?'),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Cancelar'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _clearTransactions(),
+                                child: const Text('Sim'),
+                              ),
+                            ],
+                          );
+                        });
+                  }),
               PopupMenuItem(
                 child: const Text('Alterar tema'),
                 onTap: () {},
@@ -97,11 +141,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 10),
+              child: Text(
+                'Seus gastos nos últimos sete dias: ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
             Chart(recentTransactions: _recentTransactions),
             const SizedBox(
               height: 20,
             ),
-            TransactionList(transactions: _transactions)
+            TransactionList(
+              transactions: _transactions,
+              onRemove: _removeTransaction,
+            )
           ],
         ),
       ),

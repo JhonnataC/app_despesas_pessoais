@@ -19,6 +19,9 @@ class TransactionList extends StatelessWidget {
       child: transactions.isEmpty
           ? Column(
               children: [
+                const SizedBox(
+                  height: 50,
+                ),
                 SizedBox(
                   height: 200,
                   child: Image.asset(
@@ -30,7 +33,7 @@ class TransactionList extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  'Nenhuma transação cadastrada!',
+                  'Nenhuma transação cadastrada',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
@@ -48,10 +51,16 @@ class TransactionList extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       radius: 30,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: FittedBox(
-                          child: Text('R\$${tr.value}'),
+                          child: Text(
+                            '\$${tr.value}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),

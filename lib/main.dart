@@ -22,10 +22,10 @@ class DespesasApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('pt', 'BR')],
       theme: theme.copyWith(
-        
         colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.blue,
-          secondary: Colors.blueGrey,
+          primary: Colors.black, // const Color(0XF0182625),
+          secondary: const Color(0XF03D5A73),
+          tertiary: const Color(0XF02F3D40),
         ),
         appBarTheme: theme.appBarTheme.copyWith(
           titleTextStyle: const TextStyle(
@@ -38,7 +38,6 @@ class DespesasApp extends StatelessWidget {
           titleLarge: const TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 18,
-            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
           titleMedium: const TextStyle(

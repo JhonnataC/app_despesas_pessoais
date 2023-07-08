@@ -17,6 +17,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     _submitForm() {
       final title = _titleController.text;
       final value = double.tryParse(_valueController.text) ?? 0.0;
@@ -29,6 +30,7 @@ class _TransactionFormState extends State<TransactionForm> {
       widget.onSubmit(title, value, date);
     }
 
+    // ignore: no_leading_underscores_for_local_identifiers
     _showDatePicker() {
       showDatePicker(
         context: context,
@@ -51,6 +53,15 @@ class _TransactionFormState extends State<TransactionForm> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Adicione os dados da transação',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
               TextField(
                 controller: _titleController,
                 onSubmitted: (_) => _submitForm(),

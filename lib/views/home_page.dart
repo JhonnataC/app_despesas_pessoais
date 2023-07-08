@@ -16,30 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 't0',
-    //   title: 'Conta antiga',
-    //   value: 500.50,
-    //   date: DateTime.now().subtract(const Duration(days: 33)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Novo tênis',
-    //   value: 37,
-    //   date: DateTime.now().subtract(const Duration(days: 1)),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Gta 6',
-    //   value: 400,
-    //   date: DateTime.now().subtract(const Duration(days: 2)),
-    // ),
-    // Transaction(
-    //   id: 't3',
-    //   title: 'Fatura do mês',
-    //   value: 1000,
-    //   date: DateTime.now().subtract(const Duration(days: 4)),
-    // ),
     Transaction(
       id: 't4',
       title: 'Coxinha',
@@ -94,6 +70,35 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _transactions.clear();
     });
+    Navigator.of(context).pop();
+  }
+
+  _showConfirmBox() {
+    Future.delayed(
+      Duration.zero,
+      () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Confirmação'),
+              content:
+                  const Text('Deseja realmente excluir todas as transações?'),
+              actions: [
+                TextButton(
+                  onPressed: () => _clearTransactions(),
+                  child: const Text('Sim'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancelar'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -104,33 +109,13 @@ class _HomePageState extends State<HomePage> {
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [
+              // PopupMenuItem(
+              //   onTap: () {},
+              //   child: const Text('Alterar tema'),
+              // ),
               PopupMenuItem(
-                  child: const Text('Limpar lista de compras'),
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return AlertDialog(
-                            title: const Text(
-                                'Deseja realmente excluir todas as transações?'),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancelar'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () => _clearTransactions(),
-                                child: const Text('Sim'),
-                              ),
-                            ],
-                          );
-                        });
-                  }),
-              PopupMenuItem(
-                child: const Text('Alterar tema'),
-                onTap: () {},
+                child: const Text('Limpar todas as transações'),
+                onTap: () => _showConfirmBox(),
               ),
             ],
             icon: const Icon(Icons.settings),

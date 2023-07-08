@@ -101,6 +101,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  double get _totalTransactions {
+    double sum = 0.0;
+    for (var tr in _transactions) {
+      sum += tr.value;
+    }
+    return sum;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,14 +141,20 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            Chart(recentTransactions: _recentTransactions),
-            const SizedBox(
-              height: 20,
+            Chart(
+              recentTransactions: _recentTransactions,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, bottom: 10),
+              child: Text(
+                'Total de gastos: \$${_totalTransactions.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
             TransactionList(
               transactions: _transactions,
               onRemove: _removeTransaction,
-            )
+            ),
           ],
         ),
       ),

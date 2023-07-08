@@ -22,18 +22,18 @@ class TransactionList extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 200,
-                  child: Image.asset(
-                    'assets/imgs/waiting.png',
-                    fit: BoxFit.cover,
+                  child: Icon(
+                    Icons.playlist_add_check_circle_sharp,
+                    size: 200,
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  'Nenhuma transação cadastrada',
+                  'Sem gastos até o momento',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],

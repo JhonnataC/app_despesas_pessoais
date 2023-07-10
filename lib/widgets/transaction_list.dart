@@ -22,11 +22,12 @@ class TransactionList extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 200,
                   child: Icon(
                     Icons.playlist_add_check_circle_sharp,
                     size: 200,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 const SizedBox(

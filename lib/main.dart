@@ -23,8 +23,8 @@ class DespesasApp extends StatelessWidget {
       supportedLocales: const [Locale('pt', 'BR')],
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.black, // const Color(0XF0182625),
-          secondary: const Color(0XF03D5A73),
+          primary: Colors.black,
+          secondary: const Color(0XFF03052C),
           tertiary: const Color(0XF02F3D40),
         ),
         appBarTheme: theme.appBarTheme.copyWith(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
@@ -72,6 +73,11 @@ class _TransactionFormState extends State<TransactionForm> {
               TextField(
                 controller: _valueController,
                 onSubmitted: (_) => _submitForm(),
+                onChanged: (value) {
+                  if (value.contains(',')) {
+                    _valueController.text = value.replaceAll(',', '.');
+                  }
+                },
                 decoration: const InputDecoration(
                   labelText: 'Valor (R\$)',
                 ),

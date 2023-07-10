@@ -15,14 +15,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: 't4',
-      title: 'Coxinha',
-      value: 4,
-      date: DateTime.now().subtract(const Duration(days: 0)),
-    )
-  ];
+  final TransactionStorage storage = TransactionStorage();
+  List<Transaction> _transactions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadTransactions();
+  }
+
+  void loadTransactions() async {
+    final transactions = await storage.getTransactions();
+    setState(() {
+      _transactions = transactions;
+    });
+  }
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
@@ -32,6 +39,14 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }).toList();
+  }
+
+  double get _totalTransactions {
+    double sum = 0.0;
+    for (var tr in _transactions) {
+      sum += tr.value;
+    }
+    return sum;
   }
 
   _addTransaction(String title, double value, DateTime date) {
@@ -44,6 +59,7 @@ class _HomePageState extends State<HomePage> {
 
     setState(() {
       _transactions.add(newTransaction);
+      storage.saveTransactions(_transactions);
     });
 
     Navigator.of(context).pop();
@@ -52,6 +68,7 @@ class _HomePageState extends State<HomePage> {
   _removeTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
+      storage.saveTransactions(_transactions);
     });
   }
 
@@ -86,7 +103,10 @@ class _HomePageState extends State<HomePage> {
                   const Text('Deseja realmente excluir todas as transações?'),
               actions: [
                 TextButton(
-                  onPressed: () => _clearTransactions(),
+                  onPressed: () {
+                    _clearTransactions();
+                    storage.saveTransactions(_transactions);
+                  },
                   child: const Text('Sim'),
                 ),
                 TextButton(
@@ -99,14 +119,6 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
-  }
-
-  double get _totalTransactions {
-    double sum = 0.0;
-    for (var tr in _transactions) {
-      sum += tr.value;
-    }
-    return sum;
   }
 
   @override

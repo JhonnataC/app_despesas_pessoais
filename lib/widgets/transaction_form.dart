@@ -76,6 +76,9 @@ class _TransactionFormState extends State<TransactionForm> {
                 onChanged: (value) {
                   if (value.contains(',')) {
                     _valueController.text = value.replaceAll(',', '.');
+                    _valueController.selection = TextSelection.fromPosition(
+                      TextPosition(offset: _valueController.text.length),
+                    );
                   }
                 },
                 decoration: const InputDecoration(

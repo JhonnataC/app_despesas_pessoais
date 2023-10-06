@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
+import 'package:projeto_despesas_pessoais/widgets/transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -14,74 +14,43 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 650,
-      child: transactions.isEmpty
-          ? Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                SizedBox(
-                  height: 200,
-                  child: Icon(
-                    Icons.playlist_add_check_circle_sharp,
-                    size: 200,
-                    color: Theme.of(context).colorScheme.secondary,
+    return transactions.isEmpty
+        ? LayoutBuilder(
+            builder: (ctx, constraints) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Sem gastos até o momento',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ],
-            )
-          : ListView.builder(
-              itemCount: transactions.length,
-              itemBuilder: (context, index) {
-                final tr = transactions[index];
-                return Card(
-                  elevation: 5,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 5,
-                  ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: FittedBox(
-                          child: Text(
-                            '\$${tr.value}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      tr.title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    subtitle: Text(
-                      DateFormat("d MMMM',' yyyy", 'pt_BR').format(tr.date),
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    trailing: IconButton(
-                      onPressed: () => onRemove(tr.id),
-                      icon: const Icon(Icons.delete),
-                      color: Theme.of(context).colorScheme.error,
+                  SizedBox(
+                    height: constraints.maxHeight * 0.5,
+                    child: LayoutBuilder(
+                      builder: (ctx, constraints) {
+                        return Icon(
+                          Icons.playlist_add_check_circle_sharp,
+                          size: constraints.maxHeight * 0.85,
+                          color: Theme.of(context).colorScheme.secondary,
+                        );
+                      },
                     ),
                   ),
-                );
-              },
-            ),
-    );
+                  Text(
+                    'Sem gastos até o momento',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
+              );
+            },
+          )
+        : ListView.builder(
+            itemCount: transactions.length,
+            itemBuilder: (context, index) {
+              final tr = transactions[index];
+              return TransactionItem(
+                tr: tr,
+                onRemove: onRemove,
+              );
+            },
+          );
   }
 }

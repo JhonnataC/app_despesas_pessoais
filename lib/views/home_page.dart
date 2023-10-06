@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TransactionStorage storage = TransactionStorage();
   List<Transaction> _transactions = [];
+  bool _showChart = false;
 
   @override
   void initState() {
@@ -123,25 +124,43 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              // PopupMenuItem(
-              //   onTap: () {},
-              //   child: const Text('Alterar tema'),
-              // ),
-              PopupMenuItem(
-                child: const Text('Limpar todas as transações'),
-                onTap: () => _showConfirmBox(),
-              ),
-            ],
-            icon: const Icon(Icons.settings),
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
+
+    final appBar = AppBar(
+      title: const Text('Despesas Pessoais'),
+      actions: [
+        if (isLandscape)
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart_outlined),
           ),
-        ],
-      ),
+        PopupMenuButton(
+          itemBuilder: (context) => [
+            // PopupMenuItem(
+            //   onTap: () {},
+            //   child: const Text('Alterar tema'),
+            // ),
+            PopupMenuItem(
+              child: const Text('Limpar todas as transações'),
+              onTap: () => _showConfirmBox(),
+            ),
+          ],
+          icon: const Icon(Icons.settings),
+        ),
+      ],
+    );
+
+    final availableHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -153,9 +172,13 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            Chart(
-              recentTransactions: _recentTransactions,
-            ),
+            if (_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * (isLandscape ? 0.7 : 0.3),
+                child: Chart(
+                  recentTransactions: _recentTransactions,
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.only(left: 20, bottom: 10),
               child: Text(
@@ -163,10 +186,14 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            TransactionList(
-              transactions: _transactions,
-              onRemove: _removeTransaction,
-            ),
+            if (!_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * (isLandscape ? 1 : 0.7),
+                child: TransactionList(
+                  transactions: _transactions,
+                  onRemove: _removeTransaction,
+                ),
+              ),
           ],
         ),
       ),

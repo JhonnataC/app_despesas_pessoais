@@ -80,8 +80,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/imgs/waiting.png
+  # assets:
+  #   - assets/imgs/waiting.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -96,16 +96,16 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: OpenSans
+    - family: Gabarito
       fonts:
-        - asset: assets/fonts/OpenSans-Regular.ttf
-        - asset: assets/fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/Gabarito-Regular.ttf
+        - asset: assets/fonts/Gabarito-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Gabarito-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Gabarito-Bold.ttf
           weight: 700
-    - family: Quicksand
-      fonts:
-        - asset: assets/fonts/Quicksand-Regular.ttf
-        - asset: assets/fonts/Quicksand-Bold.ttf
-          weight: 700
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

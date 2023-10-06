@@ -5,7 +5,10 @@ import 'package:intl/intl.dart';
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
 
-  const TransactionForm({super.key, required this.onSubmit});
+  const TransactionForm({
+    super.key,
+    required this.onSubmit,
+  });
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -48,10 +51,14 @@ class _TransactionFormState extends State<TransactionForm> {
       });
     }
 
-    return Card(
-      elevation: 5,
+    return SingleChildScrollView(
       child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
           child: Column(
             children: [
               Row(
@@ -68,6 +75,8 @@ class _TransactionFormState extends State<TransactionForm> {
                 onSubmitted: (_) => _submitForm(),
                 decoration: const InputDecoration(
                   labelText: 'Título',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  floatingLabelStyle: TextStyle(color: Colors.grey),
                 ),
               ),
               TextField(
@@ -83,6 +92,8 @@ class _TransactionFormState extends State<TransactionForm> {
                 },
                 decoration: const InputDecoration(
                   labelText: 'Valor (R\$)',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  floatingLabelStyle: TextStyle(color: Colors.grey),
                 ),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),

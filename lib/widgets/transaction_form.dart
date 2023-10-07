@@ -69,6 +69,7 @@ class _TransactionFormState extends State<TransactionForm> {
             actions: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.bodySmall,
                   foregroundColor: Theme.of(context).colorScheme.secondary,
                   backgroundColor: Theme.of(context).colorScheme.background,
                 ),
@@ -230,6 +231,7 @@ class _TransactionFormState extends State<TransactionForm> {
                     textStyle: Theme.of(context).textTheme.bodySmall,
                     foregroundColor: Theme.of(context).colorScheme.secondary,
                     backgroundColor: Theme.of(context).colorScheme.background,
+                    disabledForegroundColor: Colors.grey,
                   ),
                   onPressed:
                       !(_valueDropDownButton == null) ? _submitForm : null,

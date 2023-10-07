@@ -14,12 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   final List<Map<String, Object>> _categoriesMap = [
     {
       'title': 'Alimentos',
@@ -53,6 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
@@ -70,11 +70,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _openTrasactionFormModal(BuildContext context) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      builder: (_) {
-        return TransactionForm(
-          onSubmit: _addTransaction,
+      builder: (context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: TransactionForm(
+              onSubmit: _addTransaction,
+            ),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          surfaceTintColor: Theme.of(context).colorScheme.background,
         );
       },
     );
@@ -102,13 +108,18 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Title Large', style: Theme.of(context).textTheme.titleLarge),
-            Text('Title Medium',
+            Text('Title Large 123',
+                style: Theme.of(context).textTheme.titleLarge),
+            Text('Title Medium 123',
                 style: Theme.of(context).textTheme.titleMedium),
-            Text('Title Small', style: Theme.of(context).textTheme.titleSmall),
-            Text('Body Large', style: Theme.of(context).textTheme.bodyLarge),
-            Text('Body Medium', style: Theme.of(context).textTheme.bodyMedium),
-            Text('Body Small', style: Theme.of(context).textTheme.bodySmall),
+            Text('Title Small 123',
+                style: Theme.of(context).textTheme.titleSmall),
+            Text('Body Large 123',
+                style: Theme.of(context).textTheme.bodyLarge),
+            Text('Body Medium 123',
+                style: Theme.of(context).textTheme.bodyMedium),
+            Text('Body Small 123',
+                style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),
@@ -126,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }).toList(),
         selectedItemColor: _categoriesMap[_selectedIndex]['color'] as Color,
-        unselectedItemColor: Theme.of(context).colorScheme.background,
+        unselectedItemColor: const Color(0XFFE0E3E8),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),

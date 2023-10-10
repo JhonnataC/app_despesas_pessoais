@@ -5,18 +5,31 @@ import '../models/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
   final Transaction tr;
+  final Color color;
   final void Function(String p1) onRemove;
 
   const TransactionItem({
     super.key,
     required this.tr,
     required this.onRemove,
+    required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
+    return Container(
+      decoration: BoxDecoration(
+        // color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.secondary,
+          ],
+        ),
+      ),
       margin: const EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 5,
@@ -24,7 +37,7 @@ class TransactionItem extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           radius: 30,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: color,
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: FittedBox(
@@ -39,27 +52,40 @@ class TransactionItem extends StatelessWidget {
         ),
         title: Text(
           tr.title,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: const TextStyle(
+            fontFamily: 'Gabarito',
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
         subtitle: Text(
           DateFormat("d MMMM',' yyyy", 'pt_BR').format(tr.date),
-          style: Theme.of(context).textTheme.titleSmall,
+          style: const TextStyle(
+            fontFamily: 'Gabarito',
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            color: Colors.white70,
+          ),
         ),
         trailing: MediaQuery.of(context).size.width > 450
             ? TextButton.icon(
                 onPressed: () => onRemove(tr.id),
                 icon: const Icon(Icons.delete),
-                label: const Text('Excluir'),
-                style: ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll<Color>(
-                    Theme.of(context).colorScheme.error,
+                label: const Text(
+                  'Excluir',
+                  style: TextStyle(
+                    fontFamily: 'Gabarito',
                   ),
+                ),
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
                 ),
               )
             : IconButton(
                 onPressed: () => onRemove(tr.id),
                 icon: const Icon(Icons.delete),
-                color: Theme.of(context).colorScheme.error,
+                color: Colors.white,
               ),
       ),
     );

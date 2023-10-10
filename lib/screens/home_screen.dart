@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:projeto_despesas_pessoais/components/drawer.dart';
+import 'package:projeto_despesas_pessoais/data/data.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 import 'package:projeto_despesas_pessoais/widgets/transaction_form.dart';
+import 'package:projeto_despesas_pessoais/widgets/transaction_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,39 +16,54 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  final TransactionStorage storage = TransactionStorage();
+  List<Transaction> _transactions = [];
 
   final List<Map<String, Object>> _categoriesMap = [
     {
       'title': 'Alimentos',
       'icon': const Icon(Icons.restaurant),
       'color': const Color(0XFFF5C93C),
-      'transitions': [],
+      'transactionValue': '0',
     },
     {
       'title': 'Faturas',
       'icon': const Icon(Icons.attach_money),
       'color': const Color(0XFF01D99F),
-      'transactions': [],
+      'transactionValue': '1',
     },
     {
       'title': 'Transporte',
       'icon': const Icon(Icons.emoji_transportation),
       'color': const Color(0XFF36B5EB),
-      'transactions': [],
+      'transactionValue': '2',
     },
     {
       'title': 'Moradia',
       'icon': const Icon(Icons.house_rounded),
       'color': const Color(0XFF897AF1),
-      'transactions': [],
+      'transactionValue': '3',
     },
     {
       'title': 'Outros',
       'icon': const Icon(Icons.more),
       'color': const Color(0XFFF43460),
-      'transactions': [],
+      'transactionValue': '4',
     },
   ];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadTransactions();
+  // }
+
+  // void loadTransactions() async {
+  //   final transactions = await storage.getTransactions();
+  //   setState(() {
+  //     _transactions = transactions;
+  //   });
+  // }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -53,23 +71,70 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  _addTransaction(String title, double value, DateTime date) {
+  void _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+      storage.saveTransactions(_transactions);
+    });
+  }
+
+  // void _clearTransactions() {
+  //   setState(() {
+  //     _transactions.clear();
+  //   });
+  //   Navigator.of(context).pop();
+  // }
+
+  // void _showConfirmBox() {
+  //   Future.delayed(
+  //     Duration.zero,
+  //     () {
+  //       showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //             title: const Text('Confirmação'),
+  //             content:
+  //                 const Text('Deseja realmente excluir todas as transações?'),
+  //             actions: [
+  //               TextButton(
+  //                 onPressed: () {
+  //                   _clearTransactions();
+  //                   storage.saveTransactions(_transactions);
+  //                 },
+  //                 child: const Text('Sim'),
+  //               ),
+  //               TextButton(
+  //                 onPressed: () => Navigator.of(context).pop(),
+  //                 child: const Text('Cancelar'),
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
+
+  void _addTransaction(
+      String title, double value, DateTime date, String categoryValue) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
       date: date,
+      categoryValue: categoryValue,
     );
 
-    // setState(() {
-    //   _transactions.add(newTransaction);
-    //   storage.saveTransactions(_transactions);
-    // });
+    setState(() {
+      _transactions.add(newTransaction);
+      storage.saveTransactions(_transactions);
+    });
 
     Navigator.of(context).pop();
   }
 
-  _openTrasactionFormModal(BuildContext context) {
+  void _openTrasactionFormModal(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -102,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(
         backgroundColor: Theme.of(context).colorScheme.background,
+        child: const MyDrawer(),
       ),
       body: Center(
         child: Column(
@@ -120,6 +186,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: Theme.of(context).textTheme.bodyMedium),
             Text('Body Small 123',
                 style: Theme.of(context).textTheme.bodySmall),
+            SizedBox(
+              height: 200,
+              child: TransactionList(
+                transactions: _transactions.where((tr) {
+                  return tr.categoryValue == _selectedIndex.toString();
+                }).toList(),
+                color: _categoriesMap[_selectedIndex]['color'] as Color,
+                onRemove: _removeTransaction,
+              ),
+            )
           ],
         ),
       ),

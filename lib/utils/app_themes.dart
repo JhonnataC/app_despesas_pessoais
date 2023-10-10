@@ -1,71 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:projeto_despesas_pessoais/screens/graphics_screen.dart';
-import 'package:projeto_despesas_pessoais/screens/history_screen.dart';
-import 'package:projeto_despesas_pessoais/screens/home_screen.dart';
-import 'package:projeto_despesas_pessoais/screens/statistics_screen.dart';
-import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
-import 'package:projeto_despesas_pessoais/views/home_page.dart';
 
-void main() {
-  runApp(const DespesasApp());
-}
-
-class DespesasApp extends StatefulWidget {
-  const DespesasApp({super.key});
-
-  @override
-  State<DespesasApp> createState() => _DespesasAppState();
-}
-
-class _DespesasAppState extends State<DespesasApp> {
-  bool darkThemeOn = false;
-
-  void _changeTheme() {
-    setState(() {
-      darkThemeOn = !darkThemeOn;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData lightTheme = ThemeData();
-    final ThemeData darkTheme = ThemeData();
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('pt', 'BR')],
-      themeMode: darkThemeOn ? ThemeMode.dark : ThemeMode.light,
-      theme: lightTheme.copyWith(
-        useMaterial3: true,
-        colorScheme: lightTheme.colorScheme.copyWith(
+class AppThemes {
+  static ThemeData LIGHT_THEME = ThemeData().copyWith(
+    useMaterial3: true,
+    colorScheme: ThemeData().colorScheme.copyWith(
           primary: const Color(0XFF2C2C96),
           secondary: const Color(0XFF6858E1),
           tertiary: const Color(0XFF141321),
           background: const Color(0XFFE0E3E8),
         ),
-        appBarTheme: lightTheme.appBarTheme.copyWith(
-          titleTextStyle: TextStyle(
+    appBarTheme: ThemeData().appBarTheme.copyWith(
+          titleTextStyle: const TextStyle(
             fontFamily: 'Gabarito',
-            fontSize: 20 * MediaQuery.of(context).textScaleFactor,
             fontWeight: FontWeight.w500,
           ),
           iconTheme: const IconThemeData(
             color: Color(0XFFE0E3E8),
           ),
         ),
-        cardTheme: lightTheme.cardTheme.copyWith(
-          color: const Color(0XFF6858E1),
-          elevation: 0,
-          surfaceTintColor: const Color(0XFF6858E1),
-          shadowColor: Colors.white.withOpacity(0),
-        ),
-        textTheme: lightTheme.textTheme.copyWith(
+    textTheme: ThemeData().textTheme.copyWith(
           titleLarge: const TextStyle(
             fontFamily: 'Gabarito',
             fontSize: 25,
@@ -100,28 +53,25 @@ class _DespesasAppState extends State<DespesasApp> {
             color: Colors.grey,
           ),
         ),
-      ),
-
-      // DARK THEME
-      darkTheme: darkTheme.copyWith(
-        useMaterial3: true,
-        colorScheme: darkTheme.colorScheme.copyWith(
+  );
+  static ThemeData DARK_THEME = ThemeData().copyWith(
+    useMaterial3: true,
+    colorScheme: ThemeData().colorScheme.copyWith(
           primary: const Color(0XFF2C2C96),
           secondary: const Color(0XFF6858E1),
           tertiary: const Color(0XFF141321),
           background: const Color(0XFF15141B),
         ),
-        appBarTheme: darkTheme.appBarTheme.copyWith(
-          titleTextStyle: TextStyle(
+    appBarTheme: ThemeData().appBarTheme.copyWith(
+          titleTextStyle: const TextStyle(
             fontFamily: 'Gabarito',
-            fontSize: 20 * MediaQuery.of(context).textScaleFactor,
             fontWeight: FontWeight.w500,
           ),
           iconTheme: const IconThemeData(
             color: Color(0XFFE0E3E8),
           ),
         ),
-        textTheme: darkTheme.textTheme.copyWith(
+    textTheme: ThemeData().textTheme.copyWith(
           titleLarge: const TextStyle(
             fontFamily: 'Gabarito',
             fontSize: 25,
@@ -156,13 +106,5 @@ class _DespesasAppState extends State<DespesasApp> {
             color: Colors.grey,
           ),
         ),
-      ),
-      routes: {
-        AppRoutes.HOME: (context) => const HomeScreen(),
-        AppRoutes.STATISTICS_SCREEN: (context) => const StatisticsScreen(),
-        AppRoutes.GRAPHICS_SCREEN: (context) => const GraphicsScreen(),
-        AppRoutes.HISTORY_SCREEN: (context) => const HistoryScreen(),
-      },
-    );
-  }
+  );
 }

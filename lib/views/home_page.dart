@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:projeto_despesas_pessoais/data/data.dart';
 import 'package:projeto_despesas_pessoais/widgets/chart.dart';
 
 import '../models/transaction.dart';
@@ -50,12 +51,14 @@ class _HomePageState extends State<HomePage> {
     return sum;
   }
 
-  _addTransaction(String title, double value, DateTime date) {
+  _addTransaction(
+      String title, double value, DateTime date, String categoryValue) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
       date: date,
+      categoryValue: categoryValue,
     );
 
     setState(() {
@@ -193,6 +196,7 @@ class _HomePageState extends State<HomePage> {
                 child: TransactionList(
                   transactions: _transactions,
                   onRemove: _removeTransaction,
+                  color: Colors.black,
                 ),
               ),
           ],

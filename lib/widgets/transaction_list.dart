@@ -4,12 +4,14 @@ import 'package:projeto_despesas_pessoais/widgets/transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Color color;
   final void Function(String) onRemove;
 
   const TransactionList({
     super.key,
     required this.transactions,
     required this.onRemove,
+    required this.color,
   });
 
   @override
@@ -29,14 +31,14 @@ class TransactionList extends StatelessWidget {
                         return Icon(
                           Icons.playlist_add_check_circle_sharp,
                           size: constraints.maxHeight * 0.85,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: color,
                         );
                       },
                     ),
                   ),
                   Text(
-                    'Sem gastos até o momento',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    'Sem gastos até o momento nesta categoria',
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ],
               );
@@ -49,6 +51,7 @@ class TransactionList extends StatelessWidget {
               return TransactionItem(
                 tr: tr,
                 onRemove: onRemove,
+                color: color,
               );
             },
           );

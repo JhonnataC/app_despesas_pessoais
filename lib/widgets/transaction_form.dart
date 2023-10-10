@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double, DateTime) onSubmit;
+  final void Function(String, double, DateTime, String) onSubmit;
 
   const TransactionForm({
     super.key,
@@ -27,12 +26,21 @@ class _TransactionFormState extends State<TransactionForm> {
       final title = _titleController.text;
       final value = double.tryParse(_valueController.text) ?? 0.0;
       final date = _selectedDate;
+      final categoryValue = _valueDropDownButton;
 
-      if (title.isEmpty || value <= 0 || date == null) {
+      if (title.isEmpty ||
+          value <= 0 ||
+          date == null ||
+          categoryValue == null) {
         return;
       }
 
-      widget.onSubmit(title, value, date);
+      widget.onSubmit(
+        title,
+        value,
+        date,
+        categoryValue,
+      );
     }
 
     // ignore: no_leading_underscores_for_local_identifiers
@@ -84,11 +92,11 @@ class _TransactionFormState extends State<TransactionForm> {
       );
     }
 
+    // ignore: no_leading_underscores_for_local_identifiers
     void _dropDownCallBack(String? value) {
       setState(() {
         _valueDropDownButton = value;
       });
-      print(_valueDropDownButton);
     }
 
     return SingleChildScrollView(
@@ -175,11 +183,11 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
             DropdownButton(
               items: const [
-                DropdownMenuItem(value: '1', child: Text('Alimentos')),
-                DropdownMenuItem(value: '2', child: Text('Faturas')),
-                DropdownMenuItem(value: '3', child: Text('Transporte')),
-                DropdownMenuItem(value: '4', child: Text('Moradia')),
-                DropdownMenuItem(value: '5', child: Text('Outros')),
+                DropdownMenuItem(value: '0', child: Text('Alimentos')),
+                DropdownMenuItem(value: '1', child: Text('Faturas')),
+                DropdownMenuItem(value: '2', child: Text('Transporte')),
+                DropdownMenuItem(value: '3', child: Text('Moradia')),
+                DropdownMenuItem(value: '4', child: Text('Outros')),
               ],
               value: _valueDropDownButton,
               onChanged: _dropDownCallBack,
@@ -192,7 +200,11 @@ class _TransactionFormState extends State<TransactionForm> {
               isExpanded: true,
               borderRadius: BorderRadius.circular(10),
               dropdownColor: Theme.of(context).colorScheme.background,
-              icon: const Icon(Icons.bookmark_outline_rounded),
+              icon: Icon(
+                _valueDropDownButton == null
+                    ? Icons.bookmark_outline_rounded
+                    : Icons.bookmark,
+              ),
               iconEnabledColor: Theme.of(context).colorScheme.secondary,
               underline: Container(
                 height: 2,

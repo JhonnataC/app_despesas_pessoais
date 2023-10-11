@@ -25,7 +25,6 @@ class _DespesasAppState extends State<DespesasApp> {
     setState(() {
       darkThemeOn = !darkThemeOn;
     });
-      // Navigator.of(context).pop();
   }
 
   @override

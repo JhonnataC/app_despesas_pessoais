@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppThemes {
+  // ignore: non_constant_identifier_names
   static ThemeData LIGHT_THEME = ThemeData().copyWith(
     useMaterial3: true,
     colorScheme: ThemeData().colorScheme.copyWith(
@@ -12,6 +13,7 @@ class AppThemes {
     appBarTheme: ThemeData().appBarTheme.copyWith(
           titleTextStyle: const TextStyle(
             fontFamily: 'Gabarito',
+            fontSize: 20,
             fontWeight: FontWeight.w500,
           ),
           iconTheme: const IconThemeData(
@@ -54,6 +56,7 @@ class AppThemes {
           ),
         ),
   );
+  // ignore: non_constant_identifier_names
   static ThemeData DARK_THEME = ThemeData().copyWith(
     useMaterial3: true,
     colorScheme: ThemeData().colorScheme.copyWith(
@@ -65,6 +68,7 @@ class AppThemes {
     appBarTheme: ThemeData().appBarTheme.copyWith(
           titleTextStyle: const TextStyle(
             fontFamily: 'Gabarito',
+            fontSize: 20,
             fontWeight: FontWeight.w500,
           ),
           iconTheme: const IconThemeData(

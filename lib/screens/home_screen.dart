@@ -8,7 +8,12 @@ import 'package:projeto_despesas_pessoais/widgets/transaction_form.dart';
 import 'package:projeto_despesas_pessoais/widgets/transaction_list.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Function() changeTheme;
+
+  const HomeScreen({
+    super.key,
+    required this.changeTheme,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -78,43 +83,57 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // void _clearTransactions() {
-  //   setState(() {
-  //     _transactions.clear();
-  //   });
-  //   Navigator.of(context).pop();
-  // }
+  void _clearTransactions() {
+    setState(() {
+      _transactions.clear();
+    });
+    Navigator.of(context).pop();
+  }
 
-  // void _showConfirmBox() {
-  //   Future.delayed(
-  //     Duration.zero,
-  //     () {
-  //       showDialog(
-  //         context: context,
-  //         builder: (BuildContext context) {
-  //           return AlertDialog(
-  //             title: const Text('Confirmação'),
-  //             content:
-  //                 const Text('Deseja realmente excluir todas as transações?'),
-  //             actions: [
-  //               TextButton(
-  //                 onPressed: () {
-  //                   _clearTransactions();
-  //                   storage.saveTransactions(_transactions);
-  //                 },
-  //                 child: const Text('Sim'),
-  //               ),
-  //               TextButton(
-  //                 onPressed: () => Navigator.of(context).pop(),
-  //                 child: const Text('Cancelar'),
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
+  void _showConfirmBox() {
+    Future.delayed(
+      Duration.zero,
+      () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              titleTextStyle: Theme.of(context).textTheme.titleMedium,
+              contentTextStyle: Theme.of(context).textTheme.bodyMedium,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              surfaceTintColor: Theme.of(context).colorScheme.background,
+              title: const Text('Confirmação'),
+              content: const Text(
+                  'Atenção: tem certeza que quer apagar todos os gastos cadastrados?'),
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.bodySmall,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    foregroundColor: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: () {
+                    _clearTransactions();
+                    storage.saveTransactions(_transactions);
+                  },
+                  child: const Text('Sim'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.bodySmall,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    foregroundColor: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancelar'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
 
   void _addTransaction(
       String title, double value, DateTime date, String categoryValue) {
@@ -159,9 +178,46 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Minhas Despesas'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.settings),
+          PopupMenuButton(
+            color: Theme.of(context).colorScheme.background,
+            icon: const Icon(
+              Icons.settings,
+              color: Color(0XFFE0E3E8),
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                onTap: _showConfirmBox,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.cleaning_services,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Limpar todos os gastos',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                onTap: widget.changeTheme,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.brightness_4,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Alterar tema',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

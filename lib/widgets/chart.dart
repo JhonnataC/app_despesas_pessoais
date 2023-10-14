@@ -32,13 +32,8 @@ class Chart extends StatelessWidget {
       );
 
       double totalSum = 0.0;
-      int day = 0;
 
       for (var i = 0; i < monthTransactions.length; i++) {
-        day = monthTransactions[i].date.day;
-        print(monthTransactions[i].date);
-        print(day);
-
         bool sameDay = monthTransactions[i].date.day == monthDay.day;
         bool sameMonth = monthTransactions[i].date.month == monthDay.month;
         bool sameYear = monthTransactions[i].date.year == monthDay.year;
@@ -49,8 +44,7 @@ class Chart extends StatelessWidget {
       }
 
       return {
-        'index': (index + 1).toString(),
-        'day': day,
+        'day': (index + 1),
         'value': totalSum,
       };
     }).toList();
@@ -112,7 +106,7 @@ class Chart extends StatelessWidget {
                   return Flexible(
                     fit: FlexFit.tight,
                     child: ChartBar(
-                      label: tr['index'],
+                      label: tr['day'].toString(),
                       color: color,
                       percentage: _monthTotalValue == 0
                           ? 0

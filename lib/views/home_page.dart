@@ -176,13 +176,13 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            if (_showChart || !isLandscape)
-              SizedBox(
-                height: availableHeight * (isLandscape ? 0.7 : 0.3),
-                child: Chart(
-                  recentTransactions: _recentTransactions,
-                ),
-              ),
+            // if (_showChart || !isLandscape)
+            //   SizedBox(
+            //     height: availableHeight * (isLandscape ? 0.7 : 0.3),
+            //     child: Chart(
+            //       recentTransactions: _recentTransactions,
+            //     ),
+            //   ),
             Padding(
               padding: const EdgeInsets.only(left: 20, bottom: 10),
               child: Text(

@@ -3,14 +3,15 @@ import 'package:flutter/rendering.dart';
 
 class ChartBar extends StatelessWidget {
   final String label;
-  final double value;
   final double percentage;
+  final Color color;
+  // final dayMonth;
 
   const ChartBar({
     super.key,
     required this.label,
-    required this.value,
     required this.percentage,
+    required this.color,
   });
 
   @override
@@ -19,53 +20,37 @@ class ChartBar extends StatelessWidget {
       builder: (context, constraints) {
         return Column(
           children: [
-            SizedBox(
-              height: constraints.maxHeight * 0.15,
-              child: FittedBox(
-                child: Text(
-                  '\$${value.toStringAsFixed(2)} ',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: constraints.maxHeight * 0.05,
+            const SizedBox(
+              height: 5,
             ),
             SizedBox(
               width: 10,
-              height: constraints.maxHeight * 0.6,
+              height: 150,
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                      ),
-                      color: const Color.fromRGBO(220, 220, 220, 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
                   FractionallySizedBox(
                     heightFactor: percentage,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(5),
+                        color: color,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(2),
+                          topRight: Radius.circular(2),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: constraints.maxHeight * 0.05,
-            ),
-            SizedBox(
-              height: constraints.maxHeight * 0.15,
+            FittedBox(
               child: Text(
                 label,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey,
+                ),
               ),
             ),
           ],

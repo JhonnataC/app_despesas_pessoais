@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/components/drawer.dart';
 import 'package:projeto_despesas_pessoais/data/data.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
+import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
+import 'package:projeto_despesas_pessoais/widgets/chart.dart';
 import 'package:projeto_despesas_pessoais/widgets/transaction_form.dart';
 import 'package:projeto_despesas_pessoais/widgets/transaction_list.dart';
 
@@ -51,23 +53,41 @@ class _HomeScreenState extends State<HomeScreen> {
     },
     {
       'title': 'Outros',
-      'icon': const Icon(Icons.more),
+      'icon': const Icon(Icons.more_outlined),
       'color': const Color(0XFFF43460),
       'transactionValue': '4',
     },
   ];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loadTransactions();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    loadTransactions();
+  }
 
-  // void loadTransactions() async {
-  //   final transactions = await storage.getTransactions();
-  //   setState(() {
-  //     _transactions = transactions;
-  //   });
+  void loadTransactions() async {
+    final transactions = await storage.getTransactions();
+    setState(() {
+      _transactions = transactions;
+    });
+  }
+
+  List<Transaction> get _monthTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: MyUtilityClass.numberDaysMonth),
+        ),
+      );
+    }).toList();
+  }
+
+  // double get _totalTransactions {
+  //   double sum = 0.0;
+  //   for (var tr in _transactions) {
+  //     sum += tr.value;
+  //   }
+  //   return sum;
   // }
 
   void _onItemTapped(int index) {
@@ -144,7 +164,6 @@ class _HomeScreenState extends State<HomeScreen> {
       date: date,
       categoryValue: categoryValue,
     );
-
     setState(() {
       _transactions.add(newTransaction);
       storage.saveTransactions(_transactions);
@@ -197,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       'Limpar todos os gastos',
                       style: Theme.of(context).textTheme.bodyMedium,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -225,35 +244,37 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.background,
         child: const MyDrawer(),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Title Large 123',
-                style: Theme.of(context).textTheme.titleLarge),
-            Text('Title Medium 123',
-                style: Theme.of(context).textTheme.titleMedium),
-            Text('Title Small 123',
-                style: Theme.of(context).textTheme.titleSmall),
-            Text('Body Large 123',
-                style: Theme.of(context).textTheme.bodyLarge),
-            Text('Body Medium 123',
-                style: Theme.of(context).textTheme.bodyMedium),
-            Text('Body Small 123',
-                style: Theme.of(context).textTheme.bodySmall),
-            SizedBox(
-              height: 200,
-              child: TransactionList(
-                transactions: _transactions.where((tr) {
-                  return tr.categoryValue == _selectedIndex.toString();
-                }).toList(),
-                color: _categoriesMap[_selectedIndex]['color'] as Color,
-                onRemove: _removeTransaction,
-              ),
-            )
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Chart(
+            monthTransactions: _monthTransactions.where((tr) {
+              return tr.categoryValue == _selectedIndex.toString();
+            }).toList(),
+            color: _categoriesMap[_selectedIndex]['color'] as Color,
+          ),
+          Text('Title Large 123',
+              style: Theme.of(context).textTheme.titleLarge),
+          Text('Title Medium 123',
+              style: Theme.of(context).textTheme.titleMedium),
+          Text('Title Small 123',
+              style: Theme.of(context).textTheme.titleSmall),
+          Text('Body Large 123', style: Theme.of(context).textTheme.bodyLarge),
+          Text('Body Medium 123',
+              style: Theme.of(context).textTheme.bodyMedium),
+          Text('Body Small 123', style: Theme.of(context).textTheme.bodySmall),
+          SizedBox(
+            height: 200,
+            child: TransactionList(
+              transactions: _transactions.where((tr) {
+                return tr.categoryValue == _selectedIndex.toString();
+              }).toList(),
+              color: _categoriesMap[_selectedIndex]['color'] as Color,
+              onRemove: _removeTransaction,
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: _categoriesMap[_selectedIndex]['color'] as Color,

@@ -68,18 +68,17 @@ class TransactionItem extends StatelessWidget {
           ),
         ),
         trailing: MediaQuery.of(context).size.width > 450
-            ? TextButton.icon(
+            ? TextButton(
                 onPressed: () => onRemove(tr.id),
-                icon: const Icon(Icons.delete),
-                label: const Text(
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text(
                   'Excluir',
                   style: TextStyle(
                     fontFamily: 'Gabarito',
                   ),
-                ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
                 ),
               )
             : IconButton(

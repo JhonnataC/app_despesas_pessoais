@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
-import 'package:projeto_despesas_pessoais/widgets/chart_bar.dart';
+import 'package:projeto_despesas_pessoais/components/chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> monthTransactions;

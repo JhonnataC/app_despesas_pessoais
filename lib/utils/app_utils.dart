@@ -1,5 +1,6 @@
+import 'package:projeto_despesas_pessoais/models/transaction.dart';
+
 class MyUtilityClass {
-  // Retorna o numero de dias do mes
   static int get numberDaysMonth {
     DateTime firstDayNextMonth =
         DateTime(DateTime.now().year, DateTime.now().month + 1, 1);

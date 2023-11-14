@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/components/drawer.dart';
 import 'package:projeto_despesas_pessoais/data/data.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
-import 'package:projeto_despesas_pessoais/widgets/chart.dart';
-import 'package:projeto_despesas_pessoais/widgets/transaction_form.dart';
-import 'package:projeto_despesas_pessoais/widgets/transaction_list.dart';
+import 'package:projeto_despesas_pessoais/components/chart.dart';
+import 'package:projeto_despesas_pessoais/components/drawer.dart';
+import 'package:projeto_despesas_pessoais/components/transaction_form.dart';
+import 'package:projeto_despesas_pessoais/components/transaction_list.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function() changeTheme;
@@ -22,10 +22,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // _selecetedIndex servirá para realizar a alteração do número da categoria apresentada
   int _selectedIndex = 0;
+
+  // Storage é a instância que será usada para realizar as operações com o BD
   final TransactionStorage storage = TransactionStorage();
+
+  // _transactions é a lista das transações cadastradas no mês,
+  // a screen funcionará em cima dela
   List<Transaction> _transactions = [];
 
+  // Map das categorias existentes
   final List<Map<String, Object>> _categoriesMap = [
     {
       'title': 'Alimentos',
@@ -59,12 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
+  // O initState para carregar todas as transações do BD
   @override
   void initState() {
     super.initState();
     loadTransactions();
   }
 
+  // Traz as transações do BD para a variável _transactions
   void loadTransactions() async {
     final transactions = await storage.getTransactions();
     setState(() {
@@ -72,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // Retorna as transações do mês atual
   List<Transaction> get _monthTransactions {
     return _transactions.where((tr) {
       return tr.date.isAfter(
@@ -90,12 +100,14 @@ class _HomeScreenState extends State<HomeScreen> {
   //   return sum;
   // }
 
+  // Função da Bottom Navigation Bar
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  // Remove uma trasanção específica da lista _transactions
   void _removeTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
@@ -103,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // Remove todas as transações da lista _transactions
   void _clearTransactions() {
     setState(() {
       _transactions.clear();
@@ -110,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).pop();
   }
 
+  // Exibe a caixa de diálogo para confirmar a remoção de todas as transações
   void _showConfirmBox() {
     Future.delayed(
       Duration.zero,
@@ -155,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Adiciona uma transação à _transactions
   void _addTransaction(
       String title, double value, DateTime date, String categoryValue) {
     final newTransaction = Transaction(
@@ -172,6 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).pop();
   }
 
+  // Mostra a caixa de diálogo em que o formulário de cadastro
+  // de transições é exibido
   void _openTrasactionFormModal(BuildContext context) {
     showDialog(
       context: context,
@@ -191,14 +208,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+    final text = Theme.of(context).textTheme;
+
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: color.background,
       appBar: AppBar(
         title: const Text('Minhas Despesas'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: color.primary,
         actions: [
           PopupMenuButton(
-            color: Theme.of(context).colorScheme.background,
+            color: color.background,
             icon: const Icon(
               Icons.settings,
               color: Color(0XFFE0E3E8),
@@ -210,12 +230,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Icon(
                       Icons.cleaning_services,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: color.secondary,
                     ),
                     const SizedBox(width: 10),
                     Text(
                       'Limpar todos os gastos',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: text.bodyMedium,
                     ),
                   ],
                 ),
@@ -226,12 +246,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Icon(
                       Icons.brightness_4,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: color.secondary,
                     ),
                     const SizedBox(width: 10),
                     Text(
                       'Alterar tema',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: text.bodyMedium,
                     ),
                   ],
                 ),
@@ -241,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: color.background,
         child: const MyDrawer(),
       ),
       body: Column(
@@ -254,20 +274,16 @@ class _HomeScreenState extends State<HomeScreen> {
             }).toList(),
             color: _categoriesMap[_selectedIndex]['color'] as Color,
           ),
-          // Text('Title Large 123',
-          //     style: Theme.of(context).textTheme.titleLarge),
-          // Text('Title Medium 123',
-          //     style: Theme.of(context).textTheme.titleMedium),
-          // Text('Title Small 123',
-          //     style: Theme.of(context).textTheme.titleSmall),
-          // Text('Body Large 123', style: Theme.of(context).textTheme.bodyLarge),
-          // Text('Body Medium 123',
-          //     style: Theme.of(context).textTheme.bodyMedium),
-          // Text('Body Small 123', style: Theme.of(context).textTheme.bodySmall),
+          Text('Title Large 123', style: text.titleLarge),
+          Text('Title Medium 123', style: text.titleMedium),
+          Text('Title Small 123', style: text.titleSmall),
+          Text('Body Large 123', style: text.bodyLarge),
+          Text('Body Medium 123', style: text.bodyMedium),
+          Text('Body Small 123', style: text.bodySmall),
           SizedBox(
             height: 200,
             child: TransactionList(
-              transactions: _transactions.where((tr) {
+              transactions: _monthTransactions.where((tr) {
                 return tr.categoryValue == _selectedIndex.toString();
               }).toList(),
               color: _categoriesMap[_selectedIndex]['color'] as Color,
@@ -286,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return BottomNavigationBarItem(
             label: category['title'] as String,
             icon: category['icon'] as Widget,
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: color.primary,
           );
         }).toList(),
         selectedItemColor: _categoriesMap[_selectedIndex]['color'] as Color,

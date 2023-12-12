@@ -1,5 +1,3 @@
-import 'package:projeto_despesas_pessoais/models/transaction.dart';
-
 class MyUtilityClass {
   static int get numberDaysMonth {
     DateTime firstDayNextMonth =

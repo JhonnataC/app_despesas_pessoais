@@ -41,6 +41,7 @@ class _TransactionFormState extends State<TransactionForm> {
         date,
         categoryValue,
       );
+      Navigator.of(context).pop();
     }
 
     // ignore: no_leading_underscores_for_local_identifiers

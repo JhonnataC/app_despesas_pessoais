@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TransactionStorage {
   static const String _transactionsKey = 'transactions';
 
-  Future<List<Transaction>> getTransactions() async {
+  static Future<List<Transaction>> getTransactions() async {
     final prefs = await SharedPreferences.getInstance();
     final transactionsJson = prefs.getString(_transactionsKey);
     if (transactionsJson != null) {
@@ -19,7 +19,7 @@ class TransactionStorage {
     return [];
   }
 
-  Future<void> saveTransactions(List<Transaction> transactions) async {
+  static Future<void> saveTransactions(List<Transaction> transactions) async {
     final prefs = await SharedPreferences.getInstance();
     final encodedJson = jsonEncode(
       transactions.map((transaction) => transaction.toMap()).toList(),

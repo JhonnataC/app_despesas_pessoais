@@ -14,15 +14,14 @@ class ConfirmBox extends StatelessWidget {
       contentTextStyle: Theme.of(context).textTheme.bodyMedium,
       backgroundColor: Theme.of(context).colorScheme.background,
       surfaceTintColor: Theme.of(context).colorScheme.background,
-      title: const Text('Confirmação'),
+      title: const Text('Confirme!'),
       content: const Text(
-          'Atenção: tem certeza que quer apagar todos os gastos cadastrados?'),
+          'Tem certeza que quer apagar todos os gastos cadastrados?'),
       actions: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
+        TextButton(
+          style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.bodySmall,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            foregroundColor: Theme.of(context).colorScheme.secondary,
+            foregroundColor: const Color(0XFF6365EE),
           ),
           onPressed: () {
             transactionsProvider.clearTransactions();
@@ -30,11 +29,10 @@ class ConfirmBox extends StatelessWidget {
           },
           child: const Text('Sim'),
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
+        TextButton(
+          style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.bodySmall,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            foregroundColor: Theme.of(context).colorScheme.secondary,
+            foregroundColor: const Color(0XFF6365EE),
           ),
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Cancelar'),

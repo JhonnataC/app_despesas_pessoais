@@ -6,7 +6,7 @@ class CategoriesMapProvider with ChangeNotifier {
     {
       'title': 'Alimentos',
       'icon': const Icon(Icons.restaurant),
-      'color': const Color(0XFFF5C93C),
+      'color': const Color(0XFFF8AB02),
       'transactionValue': '0',
     },
     {

@@ -61,8 +61,7 @@ class _TransactionFormState extends State<TransactionForm> {
       });
     }
 
-    // ignore: no_leading_underscores_for_local_identifiers
-    void _showInfo() {
+    void showInfo() {
       showDialog(
         context: context,
         builder: (_) {
@@ -93,8 +92,7 @@ class _TransactionFormState extends State<TransactionForm> {
       );
     }
 
-    // ignore: no_leading_underscores_for_local_identifiers
-    void _dropDownCallBack(String? value) {
+    void dropDownCallBack(String? value) {
       setState(() {
         _valueDropDownButton = value;
       });
@@ -120,7 +118,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
                 const SizedBox(width: 5),
                 IconButton(
-                  onPressed: _showInfo,
+                  onPressed: showInfo,
                   icon: const Icon(
                     Icons.info_outline_rounded,
                     color: Colors.grey,
@@ -191,7 +189,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 DropdownMenuItem(value: '4', child: Text('Outros')),
               ],
               value: _valueDropDownButton,
-              onChanged: _dropDownCallBack,
+              onChanged: dropDownCallBack,
               hint: const Text(
                 'Selecione uma categoria',
                 style: TextStyle(color: Colors.grey),
@@ -206,7 +204,7 @@ class _TransactionFormState extends State<TransactionForm> {
                     ? Icons.bookmark_outline_rounded
                     : Icons.bookmark,
               ),
-              iconEnabledColor: Theme.of(context).colorScheme.secondary,
+              iconEnabledColor: const Color(0XFF6365EE),
               underline: Container(
                 height: 2,
                 color: Colors.grey,
@@ -228,7 +226,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   TextButton(
                     style: TextButton.styleFrom(
                       textStyle: Theme.of(context).textTheme.bodySmall,
-                      foregroundColor: Theme.of(context).colorScheme.secondary,
+                      foregroundColor: const Color(0XFF6365EE),
                     ),
                     onPressed: _showDatePicker,
                     child: const Text('Selecionar Data'),
@@ -242,7 +240,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     textStyle: Theme.of(context).textTheme.bodySmall,
-                    foregroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: const Color(0XFF6365EE),
                     backgroundColor: Theme.of(context).colorScheme.background,
                     disabledForegroundColor: Colors.grey,
                   ),

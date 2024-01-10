@@ -5,6 +5,7 @@ import 'package:projeto_despesas_pessoais/components/home_screen_components/tran
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final Color color;
+  final String value;
   final void Function(String) onRemove;
 
   const TransactionList({
@@ -12,6 +13,7 @@ class TransactionList extends StatelessWidget {
     required this.transactions,
     required this.onRemove,
     required this.color,
+    required this.value,
   });
 
   @override
@@ -49,9 +51,10 @@ class TransactionList extends StatelessWidget {
             itemBuilder: (context, index) {
               final tr = transactions[index];
               return TransactionItem(
-                tr: tr,
+                transaction: tr,
                 onRemove: onRemove,
                 color: color,
+                value: value,
               );
             },
           );

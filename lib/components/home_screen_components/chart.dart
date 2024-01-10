@@ -14,7 +14,7 @@ class Chart extends StatelessWidget {
     required this.color,
   });
 
-  // Rertorna o nome do mes atual
+  // Rertorna o nome do mês atual
   String get month {
     DateTime currentDate = DateTime.now();
     String currentMonth = DateFormat('MMMM', 'pt_BR').format(currentDate);
@@ -95,8 +95,8 @@ class Chart extends StatelessWidget {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Theme.of(context).colorScheme.primary,
                             Theme.of(context).colorScheme.secondary,
+                            Theme.of(context).colorScheme.primary,
                           ],
                         ),
                       ),

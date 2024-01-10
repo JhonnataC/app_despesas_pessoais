@@ -157,19 +157,20 @@ class _HomeScreenState extends State<HomeScreen> {
             }).toList(),
             color: categories[_selectedIndex]['color'] as Color,
           ),
-          Text('Title Large 123', style: text.titleLarge),
-          Text('Title Medium 123', style: text.titleMedium),
-          Text('Title Small 123', style: text.titleSmall),
-          Text('Body Large 123', style: text.bodyLarge),
-          Text('Body Medium 123', style: text.bodyMedium),
-          Text('Body Small 123', style: text.bodySmall),
+          // Text('Title Large 123', style: text.titleLarge),
+          // Text('Title Medium 123', style: text.titleMedium),
+          // Text('Title Small 123', style: text.titleSmall),
+          // Text('Body Large 123', style: text.bodyLarge),
+          // Text('Body Medium 123', style: text.bodyMedium),
+          // Text('Body Small 123', style: text.bodySmall),
           SizedBox(
-            height: 200,
+            height: 300,
             child: TransactionList(
               transactions: transactionsProvider.monthTransactions.where((tr) {
                 return tr.categoryValue == _selectedIndex.toString();
               }).toList(),
               color: categories[_selectedIndex]['color'] as Color,
+              value: categories[_selectedIndex]['transactionValue'] as String,
               onRemove: transactionsProvider.removeTransaction,
             ),
           )

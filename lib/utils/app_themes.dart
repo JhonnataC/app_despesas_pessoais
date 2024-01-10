@@ -5,8 +5,8 @@ class AppThemes {
   static ThemeData LIGHT_THEME = ThemeData().copyWith(
     useMaterial3: true,
     colorScheme: ThemeData().colorScheme.copyWith(
-          primary: const Color(0XFF2C2C96),
-          secondary: const Color(0XFF6858E1),
+          primary: const Color(0XFF6365EE),
+          secondary: const Color(0XFF0ABBCF),
           tertiary: const Color(0XFF141321),
           background: const Color(0XFFE0E3E8),
         ),

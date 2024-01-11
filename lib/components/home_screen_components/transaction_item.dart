@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:projeto_despesas_pessoais/components/home_screen_components/dismissed_background.dart';
 
 import '../../models/transaction.dart';
 
@@ -29,7 +30,7 @@ class TransactionItem extends StatelessWidget {
       case '3':
         return Icons.house;
       case '4':
-        return Icons.other_houses_rounded;
+        return Icons.more_outlined;
     }
     return null;
   }
@@ -41,20 +42,12 @@ class TransactionItem extends StatelessWidget {
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.error,
-        ),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-        ),
+        padding: const EdgeInsets.only(right: 8),
+        child: const DismissedBackground(),
       ),
       onDismissed: (_) => onRemove(transaction.id),
       child: Container(
         decoration: BoxDecoration(
-          // color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
@@ -67,12 +60,24 @@ class TransactionItem extends StatelessWidget {
         ),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
         child: ListTile(
-          leading: CircleAvatar(
-            radius: 30,
-            backgroundColor: color,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Icon(icon),
+          leading: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    spreadRadius: 0.1,
+                    blurRadius: 4,
+                    offset: Offset(2, 1),
+                  ),
+                ]),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: color,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Icon(icon),
+              ),
             ),
           ),
           title: Text(

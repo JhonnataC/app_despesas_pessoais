@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppThemes {
+  static bool darkThemeOn = false;
+
   // ignore: non_constant_identifier_names
   static ThemeData LIGHT_THEME = ThemeData().copyWith(
     useMaterial3: true,
@@ -8,7 +10,8 @@ class AppThemes {
           primary: const Color(0XFF6365EE),
           secondary: const Color(0XFF0ABBCF),
           tertiary: const Color(0XFF141321),
-          background: const Color(0XFFE0E3E8),
+          background: const Color(0XFFFFFFFF),
+          //0XFFE0E3E8
         ),
     appBarTheme: ThemeData().appBarTheme.copyWith(
           titleTextStyle: const TextStyle(
@@ -60,8 +63,8 @@ class AppThemes {
   static ThemeData DARK_THEME = ThemeData().copyWith(
     useMaterial3: true,
     colorScheme: ThemeData().colorScheme.copyWith(
-          primary: const Color(0XFF2C2C96),
-          secondary: const Color(0XFF6858E1),
+          primary: const Color(0XFF6365EE),
+          secondary: const Color(0XFF0ABBCF),
           tertiary: const Color(0XFF141321),
           background: const Color(0XFF15141B),
         ),

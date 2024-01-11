@@ -31,13 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  //   // O initState para carregar todas as transações do BD
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loadTransactions();
-  // }
-
   // Exibe a caixa de diálogo para confirmar a remoção de todas as transações
   void _showConfirmBox(Function() clearTransactions) {
     Future.delayed(
@@ -182,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
           context,
           transactionsProvider.addTransaction,
         ),
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_shopping_cart_rounded),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: categories.map((category) {

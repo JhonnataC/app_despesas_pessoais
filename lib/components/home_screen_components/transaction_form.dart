@@ -42,6 +42,13 @@ class _TransactionFormState extends State<TransactionForm> {
         categoryValue,
       );
       Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Gasto adicionado!'),
+          duration: Duration(seconds: 1),
+          
+        ),
+      );
     }
 
     // ignore: no_leading_underscores_for_local_identifiers
@@ -71,14 +78,14 @@ class _TransactionFormState extends State<TransactionForm> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             content: Text(
-              'É simples! O título é o que será usado para identificar o gasto, após isso é só informar o valor atribuído ao gasto, a categoria em que ele se encaixa e a data que ele ocorreu, depois é só concluir a ação e pronto! \nAtenção: você só poderá concluir a ação quando fornecer todos os dados necessários.',
+              ' É simples! O título é o que será usado para identificar o gasto, após isso é só informar o valor atribuído ao gasto, a categoria em que ele se encaixa e a data que ele ocorreu, depois é só concluir a ação e pronto! \nAtenção: você só poderá concluir a ação quando fornecer todos os dados necessários.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             actions: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
+              TextButton(
+                style: TextButton.styleFrom(
                   textStyle: Theme.of(context).textTheme.bodySmall,
-                  foregroundColor: Theme.of(context).colorScheme.secondary,
+                  foregroundColor: Theme.of(context).colorScheme.primary,
                   backgroundColor: Theme.of(context).colorScheme.background,
                 ),
                 onPressed: () => Navigator.of(context).pop(),
@@ -119,9 +126,9 @@ class _TransactionFormState extends State<TransactionForm> {
                 const SizedBox(width: 5),
                 IconButton(
                   onPressed: showInfo,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.info_outline_rounded,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 )
               ],
@@ -142,7 +149,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.primary,
                     width: 2,
                   ),
                 ),
@@ -172,7 +179,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.primary,
                     width: 2,
                   ),
                 ),
@@ -202,7 +209,7 @@ class _TransactionFormState extends State<TransactionForm> {
               icon: Icon(
                 _valueDropDownButton == null
                     ? Icons.bookmark_outline_rounded
-                    : Icons.bookmark,
+                    : Icons.bookmark_added_rounded,
               ),
               iconEnabledColor: const Color(0XFF6365EE),
               underline: Container(

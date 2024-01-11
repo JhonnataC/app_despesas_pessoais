@@ -27,6 +27,7 @@ class _DespesasAppState extends State<DespesasApp> {
   void _changeTheme() {
     setState(() {
       darkThemeOn = !darkThemeOn;
+      AppThemes.darkThemeOn = darkThemeOn;
     });
   }
 

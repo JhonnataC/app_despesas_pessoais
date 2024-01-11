@@ -21,7 +21,7 @@ class ConfirmBox extends StatelessWidget {
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.bodySmall,
-            foregroundColor: const Color(0XFF6365EE),
+            foregroundColor: Theme.of(context).colorScheme.primary,
           ),
           onPressed: () {
             transactionsProvider.clearTransactions();
@@ -32,7 +32,7 @@ class ConfirmBox extends StatelessWidget {
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.bodySmall,
-            foregroundColor: const Color(0XFF6365EE),
+            foregroundColor: Theme.of(context).colorScheme.primary,
           ),
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Cancelar'),

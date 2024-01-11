@@ -17,7 +17,7 @@ class CategoriesMapProvider with ChangeNotifier {
     },
     {
       'title': 'Transporte',
-      'icon': const Icon(Icons.emoji_transportation),
+      'icon': const Icon(Icons.emoji_transportation_sharp),
       'color': const Color(0XFF36B5EB),
       'transactionValue': '2',
     },

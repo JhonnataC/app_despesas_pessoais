@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/confirm_box.dart';
+import 'package:projeto_despesas_pessoais/components/home_screen_components/date_item.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
@@ -140,9 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const MyDrawer(),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const DateBar(),
           Chart(
             monthTransactionsInCategory:
                 transactionsProvider.monthTransactions.where((tr) {

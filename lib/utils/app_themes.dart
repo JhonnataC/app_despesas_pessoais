@@ -109,7 +109,7 @@ class AppThemes {
           bodySmall: const TextStyle(
             fontFamily: 'Gabarito',
             fontWeight: FontWeight.w500,
-            fontSize: 15,
+            fontSize: 14,
             color: Colors.grey,
           ),
         ),

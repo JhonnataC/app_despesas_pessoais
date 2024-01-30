@@ -14,17 +14,6 @@ class Chart extends StatelessWidget {
     required this.color,
   });
 
-  // Rertorna o nome do mês atual
-  String get month {
-    DateTime currentDate = DateTime.now();
-    String currentMonth = DateFormat('MMMM', 'pt_BR').format(currentDate);
-
-    String monthFormated =
-        currentMonth[0].toUpperCase() + currentMonth.substring(1);
-
-    return monthFormated;
-  }
-
   List<Map<String, dynamic>> get groupedTransactions {
     return List.generate(MyUtilityClass.numberDaysMonth, (index) {
       var dateAux =
@@ -67,10 +56,6 @@ class Chart extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
-          Text(
-            month,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
           Row(
             children: [
               FittedBox(

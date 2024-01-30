@@ -46,7 +46,6 @@ class _TransactionFormState extends State<TransactionForm> {
         const SnackBar(
           content: Text('Gasto adicionado!'),
           duration: Duration(seconds: 1),
-          
         ),
       );
     }
@@ -78,7 +77,7 @@ class _TransactionFormState extends State<TransactionForm> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             content: Text(
-              ' É simples! O título é o que será usado para identificar o gasto, após isso é só informar o valor atribuído ao gasto, a categoria em que ele se encaixa e a data que ele ocorreu, depois é só concluir a ação e pronto! \nAtenção: você só poderá concluir a ação quando fornecer todos os dados necessários.',
+              ' É simples! O título é o que será usado para identificar o gasto, após isso é só informar o valor do gasto, a categoria em que ele se encaixa e a data que ele ocorreu, depois é só concluir a ação! \nAtenção: você só poderá concluir a ação quando fornecer todos os dados necessários.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             actions: [

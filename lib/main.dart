@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
+import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
 import 'package:projeto_despesas_pessoais/screens/graphics_screen.dart';
@@ -24,10 +26,27 @@ class DespesasApp extends StatefulWidget {
 class _DespesasAppState extends State<DespesasApp> {
   bool darkThemeOn = false;
 
-  void _changeTheme() {
+  @override
+  void initState() {
+    super.initState();
+    loadTheme();
+    TransactionsHistoryStorage.saveHistory();
+  }
+
+  void changeTheme() async {
+    await PreferencesStorage.changeModePreference();
+    final result = await PreferencesStorage.loadModePreference();
     setState(() {
-      darkThemeOn = !darkThemeOn;
-      AppThemes.darkThemeOn = darkThemeOn;
+      darkThemeOn = result;
+      AppThemes.darkThemeOn = result;
+    });
+  }
+
+  Future<void> loadTheme() async {
+    final result = await PreferencesStorage.loadModePreference();
+    setState(() {
+      darkThemeOn = result;
+      AppThemes.darkThemeOn = result;
     });
   }
 
@@ -54,7 +73,7 @@ class _DespesasAppState extends State<DespesasApp> {
         theme: AppThemes.LIGHT_THEME,
         darkTheme: AppThemes.DARK_THEME,
         routes: {
-          AppRoutes.HOME: (context) => HomeScreen(changeTheme: _changeTheme),
+          AppRoutes.HOME: (context) => HomeScreen(changeTheme: changeTheme),
           AppRoutes.STATISTICS_SCREEN: (context) => const StatisticsScreen(),
           AppRoutes.GRAPHICS_SCREEN: (context) => const GraphicsScreen(),
           AppRoutes.HISTORY_SCREEN: (context) => const HistoryScreen(),

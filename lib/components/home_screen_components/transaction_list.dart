@@ -20,12 +20,12 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return transactions.isEmpty
         ? Padding(
-            padding: const EdgeInsets.only(top: 20, left: 5, right: 5),
+            padding: const EdgeInsets.only(left: 5, right: 5),
             child: FittedBox(
               child: Image.asset(
                 'assets/images/empty.png',
                 height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.7,
               ),
             ),
           )

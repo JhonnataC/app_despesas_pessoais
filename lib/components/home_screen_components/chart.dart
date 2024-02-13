@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart_bar.dart';
@@ -53,7 +52,15 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
+      margin: const EdgeInsets.all(7),
+      padding: const EdgeInsets.only(right: 5, left: 5, top: 10),
       child: Column(
         children: [
           Row(
@@ -74,7 +81,7 @@ class Chart extends StatelessWidget {
                   children: [
                     Container(
                       width: 2,
-                      height: 150, // responsitividade
+                      height: 150,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,

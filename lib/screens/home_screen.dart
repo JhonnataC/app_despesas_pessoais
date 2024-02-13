@@ -90,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: color.background,
       appBar: AppBar(
         title: const Text('Minhas Despesas'),
-        backgroundColor: color.primary,
         actions: [
           PopupMenuButton(
             color: color.background,
@@ -140,36 +139,34 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: color.background,
         child: const MyDrawer(),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const DateBar(),
-          Chart(
-            monthTransactionsInCategory:
-                transactionsProvider.monthTransactions.where((tr) {
-              return tr.categoryValue == _selectedIndex.toString();
-            }).toList(),
-            color: categories[_selectedIndex]['color'] as Color,
-          ),
-          // Text('Title Large 123', style: text.titleLarge),
-          // Text('Title Medium 123', style: text.titleMedium),
-          // Text('Title Small 123', style: text.titleSmall),
-          // Text('Body Large 123', style: text.bodyLarge),
-          // Text('Body Medium 123', style: text.bodyMedium),
-          // Text('Body Small 123', style: text.bodySmall),
-          SizedBox(
-            height: 300,
-            child: TransactionList(
-              transactions: transactionsProvider.monthTransactions.where((tr) {
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 10),
+            const DateItem(),
+            const SizedBox(height: 30),
+            Chart(
+              monthTransactionsInCategory:
+                  transactionsProvider.monthTransactions.where((tr) {
                 return tr.categoryValue == _selectedIndex.toString();
               }).toList(),
               color: categories[_selectedIndex]['color'] as Color,
-              value: categories[_selectedIndex]['transactionValue'] as String,
-              onRemove: transactionsProvider.removeTransaction,
             ),
-          )
-        ],
+            SizedBox(
+              height: 400,
+              child: TransactionList(
+                transactions:
+                    transactionsProvider.monthTransactions.where((tr) {
+                  return tr.categoryValue == _selectedIndex.toString();
+                }).toList(),
+                color: categories[_selectedIndex]['color'] as Color,
+                value: categories[_selectedIndex]['transactionValue'] as String,
+                onRemove: transactionsProvider.removeTransaction,
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: categories[_selectedIndex]['color'] as Color,
@@ -177,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
           context,
           transactionsProvider.addTransaction,
         ),
-        child: const Icon(Icons.add_shopping_cart_rounded),
+        child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: categories.map((category) {

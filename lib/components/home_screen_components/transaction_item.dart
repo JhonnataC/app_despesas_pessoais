@@ -58,7 +58,7 @@ class TransactionItem extends StatelessWidget {
             ],
           ),
         ),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 7),
         child: ListTile(
           leading: Container(
             decoration: BoxDecoration(

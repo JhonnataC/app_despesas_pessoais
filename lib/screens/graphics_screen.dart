@@ -7,10 +7,10 @@ class GraphicsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gráficos'),
+        title: const Text('Gráficos'),
       ),
-      body: Center(
-        child: Text('Gráficos'),
+      body: const Center(
+        child: Text('Vou fazer ainda fi'),
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class DateBar extends StatelessWidget {
-  const DateBar({super.key});
+class DateItem extends StatelessWidget {
+  const DateItem({super.key});
 
   // Rertorna o nome do mês atual
   String get monthAndYear {

@@ -3,10 +3,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
 import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
+import 'package:projeto_despesas_pessoais/providers/transactions_historic_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
 import 'package:projeto_despesas_pessoais/screens/graphics_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/history_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/home_screen.dart';
+import 'package:projeto_despesas_pessoais/screens/month_details_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/statistics_screen.dart';
 import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
 import 'package:projeto_despesas_pessoais/utils/app_themes.dart';
@@ -30,7 +32,6 @@ class _DespesasAppState extends State<DespesasApp> {
   void initState() {
     super.initState();
     loadTheme();
-    TransactionsHistoryStorage.saveHistory();
   }
 
   void changeTheme() async {
@@ -60,6 +61,9 @@ class _DespesasAppState extends State<DespesasApp> {
         ChangeNotifierProvider(
           create: (context) => TransactionsListProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => TransactionsHistoryProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -77,6 +81,7 @@ class _DespesasAppState extends State<DespesasApp> {
           AppRoutes.STATISTICS_SCREEN: (context) => const StatisticsScreen(),
           AppRoutes.GRAPHICS_SCREEN: (context) => const GraphicsScreen(),
           AppRoutes.HISTORY_SCREEN: (context) => const HistoryScreen(),
+          AppRoutes.MONTH_DETAILS_SCREEN:(context) => const MonthDetailsScreen(),
         },
       ),
     );

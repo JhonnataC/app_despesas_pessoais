@@ -4,12 +4,12 @@ import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart_bar.dart';
 
 class Chart extends StatelessWidget {
-  final List<Transaction> monthTransactionsInCategory;
+  final List<Transaction> transactions;
   final Color color;
 
   const Chart({
     super.key,
-    required this.monthTransactionsInCategory,
+    required this.transactions,
     required this.color,
   });
 
@@ -24,15 +24,13 @@ class Chart extends StatelessWidget {
 
       double totalSum = 0.0;
 
-      for (var i = 0; i < monthTransactionsInCategory.length; i++) {
-        bool sameDay = monthTransactionsInCategory[i].date.day == monthDay.day;
-        bool sameMonth =
-            monthTransactionsInCategory[i].date.month == monthDay.month;
-        bool sameYear =
-            monthTransactionsInCategory[i].date.year == monthDay.year;
+      for (var i = 0; i < transactions.length; i++) {
+        bool sameDay = transactions[i].date.day == monthDay.day;
+        bool sameMonth = transactions[i].date.month == monthDay.month;
+        bool sameYear = transactions[i].date.year == monthDay.year;
 
         if (sameDay && sameMonth && sameYear) {
-          totalSum += monthTransactionsInCategory[i].value;
+          totalSum += transactions[i].value;
         }
       }
 

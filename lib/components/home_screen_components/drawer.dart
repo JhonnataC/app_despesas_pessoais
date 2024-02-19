@@ -49,22 +49,30 @@ class MyDrawer extends StatelessWidget {
         ),
         _createItem(
           context,
-          Icons.stacked_bar_chart,
-          'Estatísticas',
-          () => Navigator.of(context).pushNamed(AppRoutes.STATISTICS_SCREEN),
+          Icons.home_rounded,
+          'Início',
+          () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOME),
         ),
         _createItem(
           context,
-          Icons.show_chart_outlined,
-          'Gráficos',
-          () => Navigator.of(context).pushNamed(AppRoutes.GRAPHICS_SCREEN),
+          Icons.bar_chart_rounded,
+          'Estatísticas Gerais',
+          () => Navigator.of(context)
+              .pushReplacementNamed(AppRoutes.STATISTICS_SCREEN),
         ),
         _createItem(
           context,
           Icons.history,
-          'Histórico de meses anteriores',
-          () => Navigator.of(context).pushNamed(AppRoutes.HISTORY_SCREEN),
+          'Histórico',
+          () => Navigator.of(context)
+              .pushReplacementNamed(AppRoutes.HISTORY_SCREEN),
         ),
+        // _createItem(
+        //   context,
+        //   Icons.show_chart_outlined,
+        //   'Gráficos',
+        //   () => Navigator.of(context).pushNamed(AppRoutes.GRAPHICS_SCREEN),
+        // ),
       ],
     );
   }

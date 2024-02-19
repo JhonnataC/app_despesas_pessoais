@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         showDialog(
           context: context,
           builder: (_) {
-            return const ConfirmBox();
+            return ConfirmBox(typeMessage: 1, onPressed: clearTransactions);
           },
         );
       },
@@ -147,8 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const DateItem(),
             const SizedBox(height: 30),
             Chart(
-              monthTransactionsInCategory:
-                  transactionsProvider.monthTransactions.where((tr) {
+              transactions: transactionsProvider.monthTransactions.where((tr) {
                 return tr.categoryValue == _selectedIndex.toString();
               }).toList(),
               color: categories[_selectedIndex]['color'] as Color,
@@ -156,8 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 400,
               child: TransactionList(
-                transactions:
-                    transactionsProvider.monthTransactions.where((tr) {
+                transactions: transactionsProvider.transactions.where((tr) {
                   return tr.categoryValue == _selectedIndex.toString();
                 }).toList(),
                 color: categories[_selectedIndex]['color'] as Color,

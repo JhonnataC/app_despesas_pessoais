@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
 
 class DateItem extends StatelessWidget {
   const DateItem({super.key});
-
-  // Rertorna o nome do mês atual
-  String get monthAndYear {
-    DateTime currentDate = DateTime.now();
-    String currentMonthAndYear =
-        DateFormat('MMMM, y', 'pt_BR').format(currentDate);
-
-    String dateFormated =
-        currentMonthAndYear[0].toUpperCase() + currentMonthAndYear.substring(1);
-
-    return dateFormated;
-  }
 
   List<Map<String, Object>> get days {
     final prevDays = List.generate(
@@ -39,7 +28,7 @@ class DateItem extends StatelessWidget {
     return Column(
       children: [
         Text(
-          monthAndYear,
+          MyUtilityClass.monthAndYear,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 15),

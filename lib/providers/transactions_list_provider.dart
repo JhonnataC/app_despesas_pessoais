@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
-import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
 
 class TransactionsListProvider with ChangeNotifier {
   // _transactions é a lista das transações cadastradas no mês
@@ -17,8 +16,8 @@ class TransactionsListProvider with ChangeNotifier {
     return _transactions.where((tr) {
       return tr.date.isAfter(
         DateTime.now().subtract(
-          Duration(days: MyUtilityClass.numberDaysMonth),
-        ),
+          Duration(days: DateTime.now().day),
+        ), 
       );
     }).toList();
   }

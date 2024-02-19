@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
-import 'package:provider/provider.dart';
 
 class ConfirmBox extends StatelessWidget {
-  const ConfirmBox({super.key});
+  final int typeMessage;
+  final Function onPressed;
+
+  const ConfirmBox({
+    super.key,
+    required this.typeMessage,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var transactionsProvider = Provider.of<TransactionsListProvider>(context);
+    final String message;
+
+    if (typeMessage == 1) {
+      message = 'Deseja apagar todos os gastos cadastrados?';
+    } else {
+      message = 'Deseja limpar o histórico?';
+    }
 
     return AlertDialog(
       titleTextStyle: Theme.of(context).textTheme.titleMedium,
@@ -15,8 +26,7 @@ class ConfirmBox extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       surfaceTintColor: Theme.of(context).colorScheme.background,
       title: const Text('Confirme!'),
-      content: const Text(
-          'Tem certeza que quer apagar todos os gastos cadastrados?'),
+      content: Text(message),
       actions: [
         TextButton(
           style: TextButton.styleFrom(
@@ -24,7 +34,7 @@ class ConfirmBox extends StatelessWidget {
             foregroundColor: Theme.of(context).colorScheme.primary,
           ),
           onPressed: () {
-            transactionsProvider.clearTransactions();
+            onPressed();
             Navigator.of(context).pop();
           },
           child: const Text('Sim'),

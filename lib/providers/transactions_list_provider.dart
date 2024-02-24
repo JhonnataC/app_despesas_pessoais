@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
+import 'package:projeto_despesas_pessoais/data/transactions_history_storage.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 
 class TransactionsListProvider with ChangeNotifier {
@@ -17,7 +18,7 @@ class TransactionsListProvider with ChangeNotifier {
       return tr.date.isAfter(
         DateTime.now().subtract(
           Duration(days: DateTime.now().day),
-        ), 
+        ),
       );
     }).toList();
   }
@@ -34,6 +35,7 @@ class TransactionsListProvider with ChangeNotifier {
     );
     _transactions.add(newTransaction);
     TransactionStorage.saveTransactions(_transactions);
+    TransactionsHistoryStorage.addTransactionHistory(newTransaction);
     notifyListeners();
   }
 
@@ -47,6 +49,7 @@ class TransactionsListProvider with ChangeNotifier {
   void removeTransaction(String id) {
     _transactions.removeWhere((tr) => tr.id == id);
     TransactionStorage.saveTransactions(_transactions);
+    TransactionsHistoryStorage.removeTransactionHistory(id);
     notifyListeners();
   }
 
@@ -54,6 +57,7 @@ class TransactionsListProvider with ChangeNotifier {
   void clearTransactions() {
     _transactions.clear();
     TransactionStorage.saveTransactions(_transactions);
+    TransactionsHistoryStorage.clearCurrentMonth();
     notifyListeners();
   }
 }

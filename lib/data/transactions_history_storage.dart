@@ -1,19 +1,20 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionsHistoryStorage {
   static const _transactionHistoryKey = 'history';
 
-  static Future<void> saveTransactionHistory() async {
+  static String _dateFormated(DateTime date) {
+    return DateFormat('MMMM, y', 'pt_BR').format(date);
+  }
+
+  static Future<void> saveTransactionHistory(
+      Map<String, dynamic> transactionsHistory) async {
     final prefs = await SharedPreferences.getInstance();
-
-    Map<String, List<Map<String, dynamic>>> historyTransactions = await history;
-
-    final encodedJson = jsonEncode(historyTransactions);
+    final encodedJson = jsonEncode(transactionsHistory);
     await prefs.setString(_transactionHistoryKey, encodedJson);
   }
 
@@ -28,7 +29,7 @@ class TransactionsHistoryStorage {
 
       decodedJson.forEach((dateKey, transactions) {
         historyTransactions.add({
-          'data': dateKey,
+          'date': dateKey,
           'transactions': transactions
               .map((transaction) => Transaction.fromMap(transaction))
               .toList(),
@@ -40,43 +41,67 @@ class TransactionsHistoryStorage {
     }
   }
 
+  static Future<void> addTransactionHistory(Transaction newTransaction) async {
+    final prefs = await SharedPreferences.getInstance();
+    final encodedJson = prefs.getString(_transactionHistoryKey);
+    final transactionDate = _dateFormated(newTransaction.date);
+    Map<String, dynamic> transactions = {};
+
+    if (encodedJson != null) {
+      transactions = jsonDecode(encodedJson);
+
+      if (transactions.containsKey(transactionDate)) {
+        transactions[transactionDate].add(newTransaction.toMap());
+      } else {
+        transactions.addAll({
+          transactionDate: [newTransaction.toMap()]
+        });
+      }
+    } else {
+      transactions.addAll({
+        transactionDate: [newTransaction.toMap()]
+      });
+    }
+    saveTransactionHistory(transactions);
+  }
+
+  static Future<void> removeTransactionHistory(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    final encodedJson = prefs.getString(_transactionHistoryKey);
+    final currentDate = _dateFormated(DateTime.now());
+
+    if (encodedJson != null) {
+      Map<String, dynamic> transactionsHistory = jsonDecode(encodedJson);
+      transactionsHistory.forEach((date, transactions) {
+        if (date == currentDate) {
+          transactions.removeWhere((tr) => tr['id'] == id);
+        }
+      });
+      if (transactionsHistory[currentDate] != null &&
+          transactionsHistory[currentDate].isEmpty) {
+        transactionsHistory.remove(currentDate);
+      }
+      saveTransactionHistory(transactionsHistory);
+    }
+  }
+
+  static Future<void> clearCurrentMonth() async {
+    final prefs = await SharedPreferences.getInstance();
+    final encodedJson = prefs.getString(_transactionHistoryKey);
+    final currentMonth = _dateFormated(DateTime.now());
+
+    if (encodedJson != null) {
+      Map<String, dynamic> transactions = jsonDecode(encodedJson);
+
+      if (transactions[currentMonth] != null) {
+        transactions.remove(currentMonth);
+        saveTransactionHistory(transactions);
+      }
+    }
+  }
+
   static Future<void> clearTransactionsHistory() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_transactionHistoryKey, jsonEncode({}));
-  }
-
-  static Future<Map<String, List<Map<String, dynamic>>>> get history async {
-    final List<Transaction> transactions =
-        await TransactionStorage.getTransactions();
-    Map<String, List<Map<String, dynamic>>> historyMaps = {};
-
-    if (transactions.isEmpty) return {};
-
-    for (var transaction in transactions) {
-      final date = DateFormat('MMMM, y', 'pt_BR').format(transaction.date);
-
-      if (historyMaps.isEmpty) {
-        historyMaps.addAll({
-          date: [transaction.toMap()],
-        });
-        continue;
-      }
-
-      final copyHistory = historyMaps.keys.toList();
-
-      for (var dateKey in copyHistory) {
-        if (copyHistory.contains(date)) {
-          if (dateKey == date) {
-            historyMaps[date]!.add(transaction.toMap());
-          }
-        } else {
-          historyMaps.addAll({
-            date: [transaction.toMap()],
-          });
-        }
-      }
-    }
-
-    return historyMaps;
   }
 }

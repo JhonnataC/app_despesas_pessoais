@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
-import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_historic_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
@@ -81,7 +80,8 @@ class _DespesasAppState extends State<DespesasApp> {
           AppRoutes.STATISTICS_SCREEN: (context) => const StatisticsScreen(),
           AppRoutes.GRAPHICS_SCREEN: (context) => const GraphicsScreen(),
           AppRoutes.HISTORY_SCREEN: (context) => const HistoryScreen(),
-          AppRoutes.MONTH_DETAILS_SCREEN:(context) => const MonthDetailsScreen(),
+          AppRoutes.MONTH_DETAILS_SCREEN: (context) =>
+              const MonthDetailsScreen(),
         },
       ),
     );

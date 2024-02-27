@@ -11,7 +11,7 @@ class AppThemes {
           secondary: const Color(0XFF0ABBCF),
           tertiary: const Color(0XFF141321),
           background: const Color(0XFFFFFFFF),
-          surface: const Color(0XFFF5F5F5),
+          surface: const Color(0XFFF1F2F4),
         ),
     appBarTheme: ThemeData().appBarTheme.copyWith(
           titleTextStyle: const TextStyle(

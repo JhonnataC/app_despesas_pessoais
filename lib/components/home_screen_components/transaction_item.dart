@@ -26,11 +26,11 @@ class TransactionItem extends StatelessWidget {
       case '1':
         return Icons.attach_money;
       case '2':
-        return Icons.emoji_transportation;
+        return Icons.directions_bus_rounded;
       case '3':
         return Icons.house;
       case '4':
-        return Icons.more_outlined;
+        return Icons.more_horiz_outlined;
     }
     return null;
   }

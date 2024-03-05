@@ -76,7 +76,7 @@ class TransactionItem extends StatelessWidget {
               backgroundColor: color,
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Icon(icon),
+                child: Icon(icon, color: Colors.white),
               ),
             ),
           ),

@@ -102,7 +102,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           leading: CircleAvatar(
                             backgroundColor:
                                 Theme.of(context).colorScheme.primary,
-                            child: const Icon(Icons.calendar_month_sharp),
+                            child: const Icon(Icons.calendar_month_sharp, color: Colors.white),
                           ),
                           title: Text(
                             dateFormated,

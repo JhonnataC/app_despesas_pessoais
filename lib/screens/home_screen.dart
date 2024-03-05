@@ -172,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
           context,
           transactionsProvider.addTransaction,
         ),
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: categories.map((category) {

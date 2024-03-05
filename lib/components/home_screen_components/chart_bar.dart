@@ -30,7 +30,8 @@ class ChartBar extends StatelessWidget {
                 children: [
                   FractionallySizedBox(
                     heightFactor: percentage,
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
                       decoration: BoxDecoration(
                         color: color,
                         borderRadius: const BorderRadius.only(

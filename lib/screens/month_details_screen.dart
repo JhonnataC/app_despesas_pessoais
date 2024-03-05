@@ -184,7 +184,7 @@ class HistoryTransactionList extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   child: const Padding(
                     padding: EdgeInsets.all(4.0),
-                    child: Icon(Icons.monetization_on_outlined),
+                    child: Icon(Icons.monetization_on_outlined, color: Colors.white),
                   ),
                 ),
               ),

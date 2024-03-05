@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
-import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
 import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
 import 'package:provider/provider.dart';

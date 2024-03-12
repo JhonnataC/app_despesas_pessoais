@@ -77,7 +77,7 @@ class _TransactionFormState extends State<TransactionForm> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             content: Text(
-              ' É simples! O título é o que será usado para identificar o gasto, após isso é só informar o valor do gasto, a categoria em que ele se encaixa e a data que ele ocorreu, depois é só concluir a ação! \nAtenção: você só poderá concluir a ação quando fornecer todos os dados necessários.',
+              'Adicione um novo gasto preenchendo os campos abaixo com as informações correspondentes e finalize a ação. Para excluir um gasto, basta arrastá-lo para a esquerda.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             actions: [

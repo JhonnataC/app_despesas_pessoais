@@ -12,4 +12,15 @@ class PreferencesStorage {
     bool darkThemeOn = prefs.getBool('darkThemeOn') ?? false;
     return darkThemeOn;
   }
+
+  static Future<bool> introScreenIsOn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool introScreenOn = prefs.getBool('introScreenOn') ?? true;
+    return introScreenOn;
+  } 
+
+  static Future<void> introScreenOff() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('introScreenOn', false);
+  }
 }

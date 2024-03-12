@@ -18,7 +18,10 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return transactions.isEmpty
+        transactions.sort((a, b) => b.date.compareTo(a.date));
+        
+
+        return transactions.isEmpty
         ? Padding(
             padding: const EdgeInsets.only(left: 5, right: 5),
             child: FittedBox(

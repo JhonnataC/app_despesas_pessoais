@@ -69,13 +69,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
           child: const MyDrawer(),
         ),
         body: historyProvider.history.isEmpty
-            ? const Center(child: Text('vazio'))
+            ? Center(
+                child: Image.asset(
+                  'assets/images/history_empty.png',
+                  height: MediaQuery.of(context).size.height * 0.4,
+                ),
+              )
             : SingleChildScrollView(
                 child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
                   itemCount: historyProvider.history.length,
                   itemBuilder: (context, index) {
+                    
                     String date = historyProvider.history[index]['date'];
                     String dateFormated =
                         date[0].toUpperCase() + date.substring(1);
@@ -102,7 +108,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           leading: CircleAvatar(
                             backgroundColor:
                                 Theme.of(context).colorScheme.primary,
-                            child: const Icon(Icons.calendar_month_sharp, color: Colors.white),
+                            child: const Icon(Icons.calendar_month_sharp,
+                                color: Colors.white),
                           ),
                           title: Text(
                             dateFormated,

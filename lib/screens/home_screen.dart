@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/confirm_box.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/date_item.dart';
+import 'package:projeto_despesas_pessoais/components/home_screen_components/notification_settings.dart';
+import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
@@ -47,6 +49,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _showNotificationSettings() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: const NotificationSettings(),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          surfaceTintColor: Theme.of(context).colorScheme.background,
+        );
+      },
+    );
+  }
+
   // Mostra a caixa de diálogo em que o formulário de cadastro
   // de transições é exibido
   void _openTrasactionFormModal(BuildContext context,
@@ -55,10 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: SingleChildScrollView(
-            child: TransactionForm(
-              onSubmit: addTransaction,
-            ),
+          content: TransactionForm(
+            onSubmit: addTransaction,
           ),
           backgroundColor: Theme.of(context).colorScheme.background,
           surfaceTintColor: Theme.of(context).colorScheme.background,
@@ -70,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    PreferencesStorage.introScreenOff();
   }
 
   @override
@@ -126,6 +140,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(width: 10),
                     Text(
                       'Alterar tema',
+                      style: text.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                onTap: _showNotificationSettings,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.notifications_active_rounded,
+                      color: color.secondary,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Notificações',
                       style: text.bodyMedium,
                     ),
                   ],

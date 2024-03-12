@@ -4,9 +4,9 @@ import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_historic_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
-import 'package:projeto_despesas_pessoais/screens/graphics_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/history_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/home_screen.dart';
+import 'package:projeto_despesas_pessoais/screens/introduction_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/month_details_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/statistics_screen.dart';
 import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
@@ -26,11 +26,13 @@ class DespesasApp extends StatefulWidget {
 
 class _DespesasAppState extends State<DespesasApp> {
   bool darkThemeOn = false;
+  bool introScreenOn = true;
 
   @override
   void initState() {
     super.initState();
     loadTheme();
+    loadIntro();
   }
 
   void changeTheme() async {
@@ -50,7 +52,14 @@ class _DespesasAppState extends State<DespesasApp> {
     });
   }
 
-  @override
+  Future<void> loadIntro() async {
+    final result = await PreferencesStorage.introScreenIsOn();
+    setState(() {
+      introScreenOn = result;      
+    });
+  }
+
+  @override  
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -62,7 +71,7 @@ class _DespesasAppState extends State<DespesasApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => TransactionsHistoryProvider(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -75,10 +84,14 @@ class _DespesasAppState extends State<DespesasApp> {
         themeMode: darkThemeOn ? ThemeMode.dark : ThemeMode.light,
         theme: AppThemes.LIGHT_THEME,
         darkTheme: AppThemes.DARK_THEME,
+        home: introScreenOn
+            ? const IntroductionScreen()
+            : HomeScreen(changeTheme: changeTheme),
         routes: {
-          AppRoutes.HOME: (context) => HomeScreen(changeTheme: changeTheme),
+          AppRoutes.INTRO_SCREEN: (context) => const IntroductionScreen(),
+          AppRoutes.HOME_SCREEN: (context) =>
+              HomeScreen(changeTheme: changeTheme),
           AppRoutes.STATISTICS_SCREEN: (context) => const StatisticsScreen(),
-          AppRoutes.GRAPHICS_SCREEN: (context) => const GraphicsScreen(),
           AppRoutes.HISTORY_SCREEN: (context) => const HistoryScreen(),
           AppRoutes.MONTH_DETAILS_SCREEN: (context) =>
               const MonthDetailsScreen(),

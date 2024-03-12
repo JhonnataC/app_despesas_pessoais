@@ -5,7 +5,6 @@ class AppThemes {
 
   // ignore: non_constant_identifier_names
   static ThemeData LIGHT_THEME = ThemeData().copyWith(
-    useMaterial3: true,
     colorScheme: ThemeData().colorScheme.copyWith(
           primary: const Color(0XFF6365EE),
           secondary: const Color(0XFF0ABBCF),
@@ -62,7 +61,6 @@ class AppThemes {
   );
   // ignore: non_constant_identifier_names
   static ThemeData DARK_THEME = ThemeData().copyWith(
-    useMaterial3: true,
     colorScheme: ThemeData().colorScheme.copyWith(
           primary: const Color(0XFF6365EE),
           secondary: const Color(0XFF0ABBCF),

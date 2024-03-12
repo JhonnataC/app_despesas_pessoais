@@ -51,7 +51,7 @@ class MyDrawer extends StatelessWidget {
           context,
           Icons.home_rounded,
           'Início',
-          () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOME),
+          () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOME_SCREEN),
         ),
         _createItem(
           context,

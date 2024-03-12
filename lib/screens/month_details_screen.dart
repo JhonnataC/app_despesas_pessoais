@@ -20,7 +20,7 @@ class MonthDetailsScreen extends StatelessWidget {
           children: [
             HistoryChart(transactions: data['transactions']),
             SizedBox(
-              height: 400,
+              height:500,
               child: HistoryTransactionList(transactions: data['transactions']),
             ),
           ],
@@ -127,7 +127,7 @@ class HistoryChart extends StatelessWidget {
                     fit: FlexFit.tight,
                     child: ChartBar(
                       label: tr['day'].toString(),
-                      color: Colors.red,
+                      color: Theme.of(context).colorScheme.primary,
                       percentage: _monthTotalValue == 0
                           ? 0
                           : tr['value'] / _monthTotalValue,

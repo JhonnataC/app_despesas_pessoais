@@ -14,6 +14,8 @@ import 'package:projeto_despesas_pessoais/utils/app_themes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const DespesasApp());
 }
 
@@ -96,6 +98,7 @@ class _DespesasAppState extends State<DespesasApp> {
           AppRoutes.MONTH_DETAILS_SCREEN: (context) =>
               const MonthDetailsScreen(),
         },
+        navigatorKey: AppRoutes.navigatorKey,
       ),
     );
   }

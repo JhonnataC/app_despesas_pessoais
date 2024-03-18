@@ -5,28 +5,29 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 
 class NotificationService {
-  late FlutterLocalNotificationsPlugin localNotificationsPlugin;
+  final FlutterLocalNotificationsPlugin localNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   late AndroidNotificationDetails androidDetails;
 
   NotificationService() {
-    localNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    // localNotificationsPlugin = FlutterLocalNotificationsPlugin();
     _setupNotifications();
   }
 
   _setupNotifications() async {
     await _setupTimezone();
-    // await _initializeNotifications();
+    await _initializeNotifications();
   }
 
 // configura o timezone do app com o timezone local do dispositivo
-  _setupTimezone() async {
+  Future<void> _setupTimezone() async {
     tz.initializeTimeZones();
     final String timezoneName = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timezoneName));
   }
 
 //  config de cada S.O
-  _initializeNotifications() async {
+  Future<void> _initializeNotifications() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
 
     await localNotificationsPlugin.initialize(
@@ -42,24 +43,46 @@ class NotificationService {
   //   }
   // }
 
-  showNotification(Notifications notification) {
+  showNotification({
+    required Notifications notification,
+    required int hour,
+    required int minute,
+  }) async {
+
     androidDetails = const AndroidNotificationDetails(
       'lembrates_notifications',
-      'Lembretes',
+      'Lembretes diarios',
       channelDescription:
           'Canal dos lembretes para registrar gastos no aplicativo',
       importance: Importance.max,
       priority: Priority.max,
     );
 
-    localNotificationsPlugin.show(
+    localNotificationsPlugin.zonedSchedule(
       notification.id,
       notification.title,
       notification.body,
+      scheduledTime(),
       NotificationDetails(
         android: androidDetails,
       ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
+  }
+
+  tz.TZDateTime scheduledTime(int hour, int minute) {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+
+    tz.TZDateTime scheduledDate =
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+
+    return scheduledDate;
   }
 
   // checkForNotification() async {
@@ -68,5 +91,4 @@ class NotificationService {
   //     _onSelectNotification(details.payload);
   //   }
   // }
-
 }

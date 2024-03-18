@@ -3,12 +3,14 @@ import 'package:projeto_despesas_pessoais/components/home_screen_components/conf
 import 'package:projeto_despesas_pessoais/components/home_screen_components/date_item.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/notification_settings.dart';
 import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
+import 'package:projeto_despesas_pessoais/models/notifications.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_form.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_list.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
+import 'package:projeto_despesas_pessoais/services/notification_service.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -50,15 +52,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showNotificationSettings() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: const NotificationSettings(),
-          backgroundColor: Theme.of(context).colorScheme.background,
-          surfaceTintColor: Theme.of(context).colorScheme.background,
-        );
-      },
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       content: const NotificationSettings(),
+    //       backgroundColor: Theme.of(context).colorScheme.background,
+    //       surfaceTintColor: Theme.of(context).colorScheme.background,
+    //     );
+    //   },
+    // );
+    Provider.of<NotificationService>(context, listen: false).showNotification(
+      Notifications(
+        id: 1,
+        title: 'teste',
+        body: 'oia o cu',
+      ),
     );
   }
 

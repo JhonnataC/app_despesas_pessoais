@@ -122,7 +122,6 @@ class _TransactionFormState extends State<TransactionForm> {
                   'Adicione um novo gasto',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const SizedBox(width: 5),
                 IconButton(
                   onPressed: showInfo,
                   icon: Icon(

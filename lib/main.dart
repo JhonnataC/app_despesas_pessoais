@@ -9,6 +9,7 @@ import 'package:projeto_despesas_pessoais/screens/home_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/introduction_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/month_details_screen.dart';
 import 'package:projeto_despesas_pessoais/screens/statistics_screen.dart';
+import 'package:projeto_despesas_pessoais/services/notification_service.dart';
 import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
 import 'package:projeto_despesas_pessoais/utils/app_themes.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,14 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const DespesasApp());
+  runApp(MultiProvider(
+    providers: [
+      Provider<NotificationService>(
+        create: (context) => NotificationService(),
+      ),
+    ],
+    child: const DespesasApp(),
+  ));
 }
 
 class DespesasApp extends StatefulWidget {
@@ -57,11 +65,11 @@ class _DespesasAppState extends State<DespesasApp> {
   Future<void> loadIntro() async {
     final result = await PreferencesStorage.introScreenIsOn();
     setState(() {
-      introScreenOn = result;      
+      introScreenOn = result;
     });
   }
 
-  @override  
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [

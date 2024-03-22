@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:projeto_despesas_pessoais/models/notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 
@@ -10,7 +10,6 @@ class NotificationService {
   late AndroidNotificationDetails androidDetails;
 
   NotificationService() {
-    // localNotificationsPlugin = FlutterLocalNotificationsPlugin();
     _setupNotifications();
   }
 
@@ -28,7 +27,7 @@ class NotificationService {
 
 //  config de cada S.O
   Future<void> _initializeNotifications() async {
-    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const android = AndroidInitializationSettings('@mipmap/launcher_icon');
 
     await localNotificationsPlugin.initialize(
       const InitializationSettings(
@@ -37,32 +36,21 @@ class NotificationService {
     );
   }
 
-  // _onSelectNotification(String? payload) {
-  //   if (payload != null && payload.isNotEmpty) {
-  //     Navigator.of(AppRoutes.navigatorKey!.currentContext!).pushNamed(payload);
-  //   }
-  // }
-
-  showNotification({
-    required Notifications notification,
-    required int hour,
-    required int minute,
-  }) async {
-
+  showNotification({required TimeOfDay time}) async {
     androidDetails = const AndroidNotificationDetails(
       'lembrates_notifications',
       'Lembretes diarios',
       channelDescription:
           'Canal dos lembretes para registrar gastos no aplicativo',
+      icon: '@mipmap/launcher_icon',
       importance: Importance.max,
       priority: Priority.max,
     );
-
     localNotificationsPlugin.zonedSchedule(
-      notification.id,
-      notification.title,
-      notification.body,
-      scheduledTime(),
+      1,
+      'Lembrete',
+      'Não se esqueça de registrar os seus gastos!',
+      scheduledTime(time),
       NotificationDetails(
         android: androidDetails,
       ),
@@ -72,23 +60,15 @@ class NotificationService {
     );
   }
 
-  tz.TZDateTime scheduledTime(int hour, int minute) {
+  tz.TZDateTime scheduledTime(TimeOfDay time) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    // final tz.TZDateTime now = tz.TZDateTime.now(tz.local).subtract(const Duration(hours: 3));
 
-    tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
-
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        tz.local, now.year, now.month, now.day, time.hour, time.minute);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
-
     return scheduledDate;
   }
-
-  // checkForNotification() async {
-  //   final details = await localNotificationsPlugin.getNotificationAppLaunchDetails();
-  //   if (details!=null && details.didNotificationLaunchApp) {
-  //     _onSelectNotification(details.payload);
-  //   }
-  // }
 }

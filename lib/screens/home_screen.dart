@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/confirm_box.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/date_item.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/notification_settings.dart';
-import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
-import 'package:projeto_despesas_pessoais/models/notifications.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/chart.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_form.dart';
 import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_list.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
-import 'package:projeto_despesas_pessoais/services/notification_service.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  final Function() changeTheme;
+import '../providers/preferences_provider.dart';
 
-  const HomeScreen({
-    super.key,
-    required this.changeTheme,
-  });
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -52,22 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showNotificationSettings() {
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       content: const NotificationSettings(),
-    //       backgroundColor: Theme.of(context).colorScheme.background,
-    //       surfaceTintColor: Theme.of(context).colorScheme.background,
-    //     );
-    //   },
-    // );
-    Provider.of<NotificationService>(context, listen: false).showNotification(
-      Notifications(
-        id: 1,
-        title: 'teste',
-        body: 'oia o cu',
-      ),
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: const NotificationSettings(),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          surfaceTintColor: Theme.of(context).colorScheme.background,
+        );
+      },
     );
   }
 
@@ -90,14 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    PreferencesStorage.introScreenOff();
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    Provider.of<PreferencesProvider>(context, listen: false).turnOffIntroScreen();
     Provider.of<TransactionsListProvider>(context).loadTransactions();
   }
 
@@ -108,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final categories =
         Provider.of<CategoriesMapProvider>(context).categoriesMap;
     final transactionsProvider = Provider.of<TransactionsListProvider>(context);
+    final ppProvider = Provider.of<PreferencesProvider>(context);
 
     return Scaffold(
       backgroundColor: color.background,
@@ -139,7 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               PopupMenuItem(
-                onTap: widget.changeTheme,
+                onTap: () {
+                  ppProvider.changeTheme();
+                },
                 child: Row(
                   children: [
                     Icon(
@@ -159,7 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      Icons.notifications_active_rounded,
+                      ppProvider.notificationIsOn
+                          ? Icons.notifications_active_rounded
+                          : Icons.notifications_off_rounded,
                       color: color.secondary,
                     ),
                     const SizedBox(width: 10),

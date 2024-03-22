@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:projeto_despesas_pessoais/providers/preferences_provider.dart';
+import 'package:projeto_despesas_pessoais/services/notification_service.dart';
+import 'package:provider/provider.dart';
 
 class NotificationSettings extends StatefulWidget {
   const NotificationSettings({super.key});
@@ -9,24 +11,18 @@ class NotificationSettings extends StatefulWidget {
 }
 
 class _NotificationSettingsState extends State<NotificationSettings> {
-  bool swicthValue = true;
-  TimeOfDay selectedtime = const TimeOfDay(hour: 19, minute: 00);
-
-  void _showTimePicker() {
-    showTimePicker(
-      context: context,
-      initialTime: selectedtime,
-      initialEntryMode: TimePickerEntryMode.dial,
-    ).then((value) {
-      if (value == null) return;
-      setState(() {
-        selectedtime = value;
-      });
-    });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Provider.of<PreferencesProvider>(context).loadNotificationTime();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ppProvider = Provider.of<PreferencesProvider>(context);
+    TimeOfDay selectedTime = ppProvider.notificationTime;
+    bool swicthValue = ppProvider.notificationIsOn;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,14 +34,14 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Exibir notificações?'),
+              const Text('Exibir lembrete?'),
               Transform.scale(
                 scale: 0.8,
                 child: Switch(
                   value: swicthValue,
                   onChanged: (value) {
                     setState(() {
-                      swicthValue = value;
+                      ppProvider.changeNotificationMode();
                     });
                   },
                 ),
@@ -57,10 +53,21 @@ class _NotificationSettingsState extends State<NotificationSettings> {
             children: [
               swicthValue
                   ? Text(
-                      ' ${selectedtime.hour}:${selectedtime.minute.toString().padLeft(2, '0')}')
+                      ' ${selectedTime.hour.toString().padLeft(2, '0')}:${selectedTime.minute.toString().padLeft(2, '0')}')
                   : const Text(''),
               TextButton(
-                onPressed: swicthValue ? _showTimePicker : null,
+                onPressed: swicthValue
+                    ? () {
+                        showTimePicker(
+                          context: context,
+                          initialTime: selectedTime,
+                          initialEntryMode: TimePickerEntryMode.dial,
+                        ).then((value) {
+                          if (value == null) return;
+                          ppProvider.saveNotificationTime(value);
+                        });
+                      }
+                    : null,
                 child: const Text(
                   'Selecionar horário',
                   style: TextStyle(fontFamily: 'Gabarito'),
@@ -72,7 +79,13 @@ class _NotificationSettingsState extends State<NotificationSettings> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (swicthValue) {
+                    Provider.of<NotificationService>(context, listen: false)
+                        .showNotification(time: selectedTime);
+                  }
+                  Navigator.of(context).pop();
+                },
                 child: const Text(
                   'Concluído',
                   style: TextStyle(fontFamily: 'Gabarito'),

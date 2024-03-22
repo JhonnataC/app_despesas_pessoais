@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
+import 'package:projeto_despesas_pessoais/providers/preferences_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_historic_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
 import 'package:projeto_despesas_pessoais/screens/history_screen.dart';
@@ -22,6 +23,9 @@ void main() {
       Provider<NotificationService>(
         create: (context) => NotificationService(),
       ),
+      ChangeNotifierProvider<PreferencesProvider>(
+        create: (context) => PreferencesProvider(),
+      )
     ],
     child: const DespesasApp(),
   ));
@@ -35,42 +39,48 @@ class DespesasApp extends StatefulWidget {
 }
 
 class _DespesasAppState extends State<DespesasApp> {
-  bool darkThemeOn = false;
-  bool introScreenOn = true;
-
+  
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    triggerNotification();
     loadTheme();
     loadIntro();
   }
 
-  void changeTheme() async {
-    await PreferencesStorage.changeModePreference();
-    final result = await PreferencesStorage.loadModePreference();
-    setState(() {
-      darkThemeOn = result;
-      AppThemes.darkThemeOn = result;
-    });
+  void triggerNotification() {
+    PreferencesProvider ppProvider = Provider.of<PreferencesProvider>(context);
+
+    ppProvider.loadNotificationMode();
+
+    if (!ppProvider.notificationIsOn) return;
+
+    ppProvider.loadNotificationTime();
+
+    Provider.of<NotificationService>(context, listen: false)
+        .showNotification(time: ppProvider.notificationTime);
   }
 
-  Future<void> loadTheme() async {
-    final result = await PreferencesStorage.loadModePreference();
-    setState(() {
-      darkThemeOn = result;
-      AppThemes.darkThemeOn = result;
-    });
+  void loadTheme() {
+    Provider.of<PreferencesProvider>(context, listen: false).loadTheme();
   }
 
   Future<void> loadIntro() async {
-    final result = await PreferencesStorage.introScreenIsOn();
-    setState(() {
-      introScreenOn = result;
-    });
+    Provider.of<PreferencesProvider>(context, listen: false).loadIntro();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool darkThemeIsOn =
+        Provider.of<PreferencesProvider>(context).darkThemeIsOn;
+    bool introScreenOn =
+        Provider.of<PreferencesProvider>(context).introScreenOn;
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -91,16 +101,13 @@ class _DespesasAppState extends State<DespesasApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('pt', 'BR')],
-        themeMode: darkThemeOn ? ThemeMode.dark : ThemeMode.light,
+        themeMode: darkThemeIsOn ? ThemeMode.dark : ThemeMode.light,
         theme: AppThemes.LIGHT_THEME,
         darkTheme: AppThemes.DARK_THEME,
-        home: introScreenOn
-            ? const IntroductionScreen()
-            : HomeScreen(changeTheme: changeTheme),
+        home: introScreenOn ? const IntroductionScreen() : const HomeScreen(),
         routes: {
           AppRoutes.INTRO_SCREEN: (context) => const IntroductionScreen(),
-          AppRoutes.HOME_SCREEN: (context) =>
-              HomeScreen(changeTheme: changeTheme),
+          AppRoutes.HOME_SCREEN: (context) => const HomeScreen(),
           AppRoutes.STATISTICS_SCREEN: (context) => const StatisticsScreen(),
           AppRoutes.HISTORY_SCREEN: (context) => const HistoryScreen(),
           AppRoutes.MONTH_DETAILS_SCREEN: (context) =>

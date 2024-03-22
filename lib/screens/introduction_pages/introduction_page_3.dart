@@ -13,7 +13,7 @@ class IntroductionPage3 extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Image.asset(
-          'assets/images/intro6.png',
+          'assets/images/intro3.png',
           fit: BoxFit.fill,
         ),
         Column(

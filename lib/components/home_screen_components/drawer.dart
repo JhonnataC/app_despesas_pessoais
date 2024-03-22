@@ -10,7 +10,7 @@ class MyDrawer extends StatelessWidget {
       leading: Icon(
         icon,
         size: 30,
-        color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.primary,
       ),
       title: Text(
         title,
@@ -24,29 +24,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 125,
-          width: double.infinity,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.secondary,
-              ],
-            ),
-          ),
-          child: const Text(
-            'Menu',
-            style: TextStyle(
-              fontSize: 30,
-              fontFamily: 'Gabarito',
-              color: Colors.white,
-            ),
-          ),
-        ),
+        Image.asset('assets/images/drawer_bg.png'),
         _createItem(
           context,
           Icons.home_rounded,

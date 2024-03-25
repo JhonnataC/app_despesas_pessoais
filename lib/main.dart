@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
 import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/preferences_provider.dart';
 import 'package:projeto_despesas_pessoais/providers/transactions_historic_provider.dart';
@@ -39,29 +38,26 @@ class DespesasApp extends StatefulWidget {
 }
 
 class _DespesasAppState extends State<DespesasApp> {
-  
+
   @override
   void initState() {
     super.initState();
+    // triggerNotification();
+    loadTheme();
+    // loadIntro();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    triggerNotification();
-    loadTheme();
-    loadIntro();
   }
 
   void triggerNotification() {
-    PreferencesProvider ppProvider = Provider.of<PreferencesProvider>(context);
-
+    PreferencesProvider ppProvider = Provider.of<PreferencesProvider>(context, listen: false);
     ppProvider.loadNotificationMode();
 
     if (!ppProvider.notificationIsOn) return;
-
     ppProvider.loadNotificationTime();
-
     Provider.of<NotificationService>(context, listen: false)
         .showNotification(time: ppProvider.notificationTime);
   }

@@ -20,7 +20,7 @@ class AppThemes {
           ),
           color: const Color(0XFF6365EE),
           iconTheme: const IconThemeData(
-            color: Color(0XFFE0E3E8),
+            color: Color(0XFFFFFFFF),
           ),
         ),
     textTheme: ThemeData().textTheme.copyWith(

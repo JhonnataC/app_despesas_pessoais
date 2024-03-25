@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: color.background,
             icon: const Icon(
               Icons.settings,
-              color: Color(0XFFE0E3E8),
+              color: Color(0XFFFFFFFF),
             ),
             itemBuilder: (context) => [
               PopupMenuItem(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -24,12 +25,13 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset('assets/images/drawer_bg.png'),
+        Image.asset('assets/images/drawer_bg.png', fit: BoxFit.fill),
         _createItem(
           context,
           Icons.home_rounded,
           'Início',
-          () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOME_SCREEN),
+          () =>
+              Navigator.of(context).pushReplacementNamed(AppRoutes.HOME_SCREEN),
         ),
         _createItem(
           context,
@@ -45,12 +47,6 @@ class MyDrawer extends StatelessWidget {
           () => Navigator.of(context)
               .pushReplacementNamed(AppRoutes.HISTORY_SCREEN),
         ),
-        // _createItem(
-        //   context,
-        //   Icons.show_chart_outlined,
-        //   'Gráficos',
-        //   () => Navigator.of(context).pushNamed(AppRoutes.GRAPHICS_SCREEN),
-        // ),
       ],
     );
   }

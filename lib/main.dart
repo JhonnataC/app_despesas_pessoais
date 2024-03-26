@@ -44,7 +44,7 @@ class _DespesasAppState extends State<DespesasApp> {
     super.initState();
     // triggerNotification();
     loadTheme();
-    loadIntro();
+    // loadIntro();
   }
 
   @override

@@ -20,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
   // _selecetedIndex servirá para realizar a alteração do número da categoria apresentada
   int _selectedIndex = 0;
 

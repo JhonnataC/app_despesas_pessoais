@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      Icons.cleaning_services,
+                      Icons.clear_all_rounded,
                       color: color.secondary,
                     ),
                     const SizedBox(width: 10),
@@ -128,7 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      Icons.brightness_4,
+                      ppProvider.darkThemeIsOn ?
+                      Icons.nights_stay_outlined : Icons.wb_sunny,
                       color: color.secondary,
                     ),
                     const SizedBox(width: 10),

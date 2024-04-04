@@ -20,7 +20,7 @@ class MonthDetailsScreen extends StatelessWidget {
           children: [
             HistoryChart(transactions: data['transactions']),
             SizedBox(
-              height:500,
+              height: 500,
               child: HistoryTransactionList(transactions: data['transactions']),
             ),
           ],
@@ -150,6 +150,8 @@ class HistoryTransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    transactions.sort((a, b) => b.date.compareTo(a.date));
+
     return ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (context, index) {
@@ -184,7 +186,8 @@ class HistoryTransactionList extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   child: const Padding(
                     padding: EdgeInsets.all(4.0),
-                    child: Icon(Icons.monetization_on_outlined, color: Colors.white),
+                    child: Icon(Icons.monetization_on_outlined,
+                        color: Colors.white),
                   ),
                 ),
               ),

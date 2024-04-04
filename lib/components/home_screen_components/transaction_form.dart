@@ -56,7 +56,7 @@ class _TransactionFormState extends State<TransactionForm> {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2020),
-        lastDate: DateTime.now(),
+        lastDate: DateTime.now().add(Duration(days: 30)),
       ).then((pickedDate) {
         if (pickedDate == null) {
           return;

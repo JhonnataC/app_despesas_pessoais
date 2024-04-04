@@ -53,12 +53,17 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                   child: Text(
                     'voltar',
                     style: TextStyle(
-                        color: onFirstPage ? Colors.transparent : Colors.white),
+                      color: onFirstPage ? Colors.transparent : Colors.white,
+                    ),
                   ),
                 ),
                 SmoothPageIndicator(
                   controller: _controller,
                   count: 3,
+                  effect: SwapEffect(
+                    activeDotColor: Colors.white,
+                    dotColor: Colors.grey.withOpacity(0.5),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {

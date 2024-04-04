@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppThemes {
-  static bool darkThemeOn = false;
-
   // ignore: non_constant_identifier_names
   static ThemeData LIGHT_THEME = ThemeData().copyWith(
     colorScheme: ThemeData().colorScheme.copyWith(
@@ -22,6 +20,13 @@ class AppThemes {
           iconTheme: const IconThemeData(
             color: Color(0XFFFFFFFF),
           ),
+        ),
+    bottomNavigationBarTheme: ThemeData().bottomNavigationBarTheme.copyWith(
+          backgroundColor: const Color(0XFFF1F2F4),
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.black,
         ),
     textTheme: ThemeData().textTheme.copyWith(
           titleLarge: const TextStyle(
@@ -78,6 +83,13 @@ class AppThemes {
           iconTheme: const IconThemeData(
             color: Color(0XFFE0E3E8),
           ),
+        ),
+    bottomNavigationBarTheme: ThemeData().bottomNavigationBarTheme.copyWith(
+          backgroundColor: const Color(0XFF2B2E3D),
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.white,
         ),
     textTheme: ThemeData().textTheme.copyWith(
           titleLarge: const TextStyle(

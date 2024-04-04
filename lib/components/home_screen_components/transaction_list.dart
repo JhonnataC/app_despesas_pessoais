@@ -19,7 +19,6 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         transactions.sort((a, b) => b.date.compareTo(a.date));
-        
 
         return transactions.isEmpty
         ? Padding(

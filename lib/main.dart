@@ -17,17 +17,19 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MultiProvider(
-    providers: [
-      Provider<NotificationService>(
-        create: (context) => NotificationService(),
-      ),
-      ChangeNotifierProvider<PreferencesProvider>(
-        create: (context) => PreferencesProvider(),
-      )
-    ],
-    child: const DespesasApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<NotificationService>(
+          create: (context) => NotificationService(),
+        ),
+        ChangeNotifierProvider<PreferencesProvider>(
+          create: (context) => PreferencesProvider(),
+        )
+      ],
+      child: const DespesasApp(),
+    ),
+  );
 }
 
 class DespesasApp extends StatefulWidget {
@@ -38,13 +40,12 @@ class DespesasApp extends StatefulWidget {
 }
 
 class _DespesasAppState extends State<DespesasApp> {
-
   @override
   void initState() {
     super.initState();
     // triggerNotification();
     loadTheme();
-    // loadIntro();
+    loadIntro();
   }
 
   @override
@@ -53,7 +54,8 @@ class _DespesasAppState extends State<DespesasApp> {
   }
 
   void triggerNotification() {
-    PreferencesProvider ppProvider = Provider.of<PreferencesProvider>(context, listen: false);
+    PreferencesProvider ppProvider =
+        Provider.of<PreferencesProvider>(context, listen: false);
     ppProvider.loadNotificationMode();
 
     if (!ppProvider.notificationIsOn) return;

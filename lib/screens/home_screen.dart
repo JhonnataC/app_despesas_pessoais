@@ -20,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
   // _selecetedIndex servirá para realizar a alteração do número da categoria apresentada
   int _selectedIndex = 0;
 
@@ -80,7 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<PreferencesProvider>(context, listen: false).turnOffIntroScreen();
+    Provider.of<PreferencesProvider>(context, listen: false)
+        .turnOffIntroScreen();
     Provider.of<TransactionsListProvider>(context).loadTransactions();
   }
 
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
           PopupMenuButton(
             color: color.background,
             icon: const Icon(
-              Icons.settings,
+              Icons.more_vert_rounded,
               color: Color(0XFFFFFFFF),
             ),
             itemBuilder: (context) => [
@@ -129,8 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      ppProvider.darkThemeIsOn ?
-                      Icons.nights_stay_outlined : Icons.wb_sunny,
+                      ppProvider.darkThemeIsOn
+                          ? Icons.nights_stay_outlined
+                          : Icons.wb_sunny,
                       color: color.secondary,
                     ),
                     const SizedBox(width: 10),
@@ -202,18 +203,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: const Icon(Icons.add, color: Colors.white),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: categories.map((category) {
-          return BottomNavigationBarItem(
-            label: category['title'] as String,
-            icon: category['icon'] as Widget,
-            backgroundColor: color.primary,
-          );
-        }).toList(),
-        selectedItemColor: categories[_selectedIndex]['color'] as Color,
-        unselectedItemColor: const Color(0XFFE0E3E8),
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      bottomNavigationBar: SizedBox(
+        height: 80,
+        child: BottomNavigationBar(
+          items: categories.map((category) {
+            return BottomNavigationBarItem(
+              label: category['title'] as String,
+              icon: category['icon'] as Widget,
+            );
+          }).toList(),
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          selectedFontSize: 12,
+          unselectedItemColor: Colors.grey.withOpacity(0.5),
+        ),
       ),
     );
   }

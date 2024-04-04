@@ -4,7 +4,7 @@ import 'package:projeto_despesas_pessoais/data/preferences_storage.dart';
 class PreferencesProvider with ChangeNotifier {
   TimeOfDay notificationTime = const TimeOfDay(hour: 19, minute: 00);
   bool notificationIsOn = true;
-  bool darkThemeIsOn = false;
+  bool darkThemeIsOn = true;
   bool introScreenOn = true;
 
   Future<void> changeNotificationMode() async {

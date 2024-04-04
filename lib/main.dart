@@ -43,7 +43,7 @@ class _DespesasAppState extends State<DespesasApp> {
   @override
   void initState() {
     super.initState();
-    // triggerNotification();
+    triggerNotification();
     loadTheme();
     loadIntro();
   }

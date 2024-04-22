@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/confirm_box.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
-import 'package:projeto_despesas_pessoais/providers/transactions_historic_provider.dart';
-import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/confirm_box.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/drawer.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/transactions_historic_provider.dart';
+import 'package:projeto_despesas_pessoais/src/data/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {

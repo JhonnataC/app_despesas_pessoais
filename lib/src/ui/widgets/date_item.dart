@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:projeto_despesas_pessoais/utils/app_utils.dart';
+import 'package:projeto_despesas_pessoais/src/data/utils/app_utils.dart';
 
 class DateItem extends StatelessWidget {
   const DateItem({super.key});

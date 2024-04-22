@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:projeto_despesas_pessoais/models/transaction.dart';
+import 'package:projeto_despesas_pessoais/src/domain/models/transaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TransactionStorage {
+class TransactionsService {
   static const String _transactionsKey = 'transactions';
 
   static Future<void> saveTransactions(List<Transaction> transactions) async {

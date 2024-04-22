@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:projeto_despesas_pessoais/data/transactions_history_storage.dart';
+import 'package:projeto_despesas_pessoais/src/data/services/transactions_history_service.dart';
 
 class TransactionsHistoryProvider with ChangeNotifier {
   List<Map<String, dynamic>> _transactionsHistory = [];
@@ -14,12 +14,12 @@ class TransactionsHistoryProvider with ChangeNotifier {
 
   Future<void> loadTransactionsHistory() async {
     _transactionsHistory =
-        await TransactionsHistoryStorage.getTransactionHistory();
+        await TransactionsHistoryService.getTransactionHistory();
     notifyListeners();
   }
 
   Future<void> clearTransactionsHistory() async {
-    TransactionsHistoryStorage.clearTransactionsHistory();
+    TransactionsHistoryService.clearTransactionsHistory();
     notifyListeners();
   }
 }

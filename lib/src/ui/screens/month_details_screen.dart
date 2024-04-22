@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/chart_bar.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/chart_bar.dart';
 
 class MonthDetailsScreen extends StatelessWidget {
   const MonthDetailsScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/providers/preferences_provider.dart';
-import 'package:projeto_despesas_pessoais/services/notification_service.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/notifications_provider.dart';
+import 'package:projeto_despesas_pessoais/src/data/services/notifications_service.dart';
 import 'package:provider/provider.dart';
 
 class NotificationSettings extends StatefulWidget {
@@ -19,9 +19,9 @@ class _NotificationSettingsState extends State<NotificationSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final ppProvider = Provider.of<PreferencesProvider>(context);
-    TimeOfDay selectedTime = ppProvider.notificationTime;
-    bool swicthValue = ppProvider.notificationIsOn;
+    final ntProvider = Provider.of<NotificationsProvider>(context);
+    TimeOfDay selectedTime = ntProvider.notificationTime;
+    bool swicthValue = ntProvider.notificationIsOn;
 
     return SingleChildScrollView(
       child: Column(
@@ -41,7 +41,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   value: swicthValue,
                   onChanged: (value) {
                     setState(() {
-                      ppProvider.changeNotificationMode();
+                      ntProvider.changeNotificationMode();
                     });
                   },
                 ),
@@ -64,7 +64,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                           initialEntryMode: TimePickerEntryMode.dial,
                         ).then((value) {
                           if (value == null) return;
-                          ppProvider.saveNotificationTime(value);
+                          ntProvider.saveNotificationTime(value);
                         });
                       }
                     : null,
@@ -81,7 +81,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
               TextButton(
                 onPressed: () {
                   if (swicthValue) {
-                    Provider.of<NotificationService>(context, listen: false)
+                    Provider.of<NotificationsService>(context, listen: false)
                         .showNotification(time: selectedTime);
                   }
                   Navigator.of(context).pop();

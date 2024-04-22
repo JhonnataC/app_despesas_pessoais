@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/data/transaction_storage.dart';
-import 'package:projeto_despesas_pessoais/data/transactions_history_storage.dart';
-import 'package:projeto_despesas_pessoais/models/transaction.dart';
+import 'package:projeto_despesas_pessoais/src/data/services/transactions_service.dart';
+import 'package:projeto_despesas_pessoais/src/data/services/transactions_history_service.dart';
+import 'package:projeto_despesas_pessoais/src/domain/models/transaction.dart';
 
 class TransactionsListProvider with ChangeNotifier {
   // _transactions é a lista das transações cadastradas no mês
@@ -34,30 +34,30 @@ class TransactionsListProvider with ChangeNotifier {
       categoryValue: categoryValue,
     );
     _transactions.add(newTransaction);
-    TransactionStorage.saveTransactions(_transactions);
-    TransactionsHistoryStorage.addTransactionHistory(newTransaction);
+    TransactionsService.saveTransactions(_transactions);
+    TransactionsHistoryService.addTransactionHistory(newTransaction);
     notifyListeners();
   }
 
   // Traz as transações do BD para a variável _transactions
   void loadTransactions() async {
-    _transactions = await TransactionStorage.getTransactions();
+    _transactions = await TransactionsService.getTransactions();
     notifyListeners();
   }
 
   // Remove uma trasanção específica da lista _transactions
   void removeTransaction(String id) {
     _transactions.removeWhere((tr) => tr.id == id);
-    TransactionStorage.saveTransactions(_transactions);
-    TransactionsHistoryStorage.removeTransactionHistory(id);
+    TransactionsService.saveTransactions(_transactions);
+    TransactionsHistoryService.removeTransactionHistory(id);
     notifyListeners();
   }
 
   // Remove todas as transações da lista _transactions
   void clearTransactions() {
     _transactions.clear();
-    TransactionStorage.saveTransactions(_transactions);
-    TransactionsHistoryStorage.clearCurrentMonth();
+    TransactionsService.saveTransactions(_transactions);
+    TransactionsHistoryService.clearCurrentMonth();
     notifyListeners();
   }
 }

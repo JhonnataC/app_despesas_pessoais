@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
+import 'package:projeto_despesas_pessoais/src/data/utils/app_routes.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});

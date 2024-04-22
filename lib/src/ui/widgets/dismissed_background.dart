@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/providers/preferences_provider.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/theme_mode_provider.dart';
 import 'package:provider/provider.dart';
 
 class DismissedBackground extends StatelessWidget {
@@ -25,7 +25,7 @@ class DismissedBackground extends StatelessWidget {
         ),
         child: Icon(
           Icons.delete,
-          color: Provider.of<PreferencesProvider>(context).darkThemeIsOn ? Colors.white : Colors.red,
+          color: Provider.of<ThemeModeProvider>(context).darkThemeIsOn ? Colors.white : Colors.red,
           size: 25,
         ),
       ),

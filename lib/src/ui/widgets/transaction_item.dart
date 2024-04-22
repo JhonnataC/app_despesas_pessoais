@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/dismissed_background.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/dismissed_background.dart';
+import 'package:projeto_despesas_pessoais/src/domain/models/transaction.dart';
 
-import '../../models/transaction.dart';
 
 // ignore: must_be_immutable
 class TransactionItem extends StatelessWidget {

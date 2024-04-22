@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-import 'package:projeto_despesas_pessoais/models/transaction.dart';
+import 'package:projeto_despesas_pessoais/src/domain/models/transaction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TransactionsHistoryStorage {
+class TransactionsHistoryService {
   static const _transactionHistoryKey = 'history';
 
   static String _dateFormated(DateTime date) {

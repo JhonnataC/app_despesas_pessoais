@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_item.dart';
-import 'package:projeto_despesas_pessoais/models/transaction.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/transaction_item.dart';
+import 'package:projeto_despesas_pessoais/src/domain/models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;

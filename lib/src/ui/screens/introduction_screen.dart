@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/screens/introduction_pages/introduction_page_1.dart';
-import 'package:projeto_despesas_pessoais/screens/introduction_pages/introduction_page_2.dart';
-import 'package:projeto_despesas_pessoais/screens/introduction_pages/introduction_page_3.dart';
-import 'package:projeto_despesas_pessoais/utils/app_routes.dart';
+import 'package:projeto_despesas_pessoais/src/ui/screens/introduction_pages/introduction_page_1.dart';
+import 'package:projeto_despesas_pessoais/src/ui/screens/introduction_pages/introduction_page_2.dart';
+import 'package:projeto_despesas_pessoais/src/ui/screens/introduction_pages/introduction_page_3.dart';
+import 'package:projeto_despesas_pessoais/src/data/utils/app_routes.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroductionScreen extends StatefulWidget {

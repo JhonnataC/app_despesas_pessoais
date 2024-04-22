@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/confirm_box.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/date_item.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/notification_settings.dart';
-import 'package:projeto_despesas_pessoais/providers/categories_map_provider.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/chart.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/drawer.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_form.dart';
-import 'package:projeto_despesas_pessoais/components/home_screen_components/transaction_list.dart';
-import 'package:projeto_despesas_pessoais/providers/transactions_list_provider.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/confirm_box.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/date_item.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/notification_settings.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/categories_map_provider.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/chart.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/drawer.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/transaction_form.dart';
+import 'package:projeto_despesas_pessoais/src/ui/widgets/transaction_list.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/intro_screen_provider.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/notifications_provider.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/theme_mode_provider.dart';
+import 'package:projeto_despesas_pessoais/src/ui/providers/transactions_list_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../providers/preferences_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<PreferencesProvider>(context, listen: false)
+    Provider.of<IntroScreenProvider>(context, listen: false)
         .turnOffIntroScreen();
     Provider.of<TransactionsListProvider>(context).loadTransactions();
   }
@@ -91,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final categories =
         Provider.of<CategoriesMapProvider>(context).categoriesMap;
     final transactionsProvider = Provider.of<TransactionsListProvider>(context);
-    final ppProvider = Provider.of<PreferencesProvider>(context);
+    final ntProvider = Provider.of<NotificationsProvider>(context);
+    final tmProvider = Provider.of<ThemeModeProvider>(context);
 
     return Scaffold(
       backgroundColor: color.background,
@@ -124,12 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               PopupMenuItem(
                 onTap: () {
-                  ppProvider.changeTheme();
+                  tmProvider.changeTheme();
                 },
                 child: Row(
                   children: [
                     Icon(
-                      ppProvider.darkThemeIsOn
+                      tmProvider.darkThemeIsOn
                           ? Icons.nights_stay_outlined
                           : Icons.wb_sunny,
                       color: color.secondary,
@@ -147,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      ppProvider.notificationIsOn
+                      ntProvider.notificationIsOn
                           ? Icons.notifications_active_rounded
                           : Icons.notifications_off_rounded,
                       color: color.secondary,

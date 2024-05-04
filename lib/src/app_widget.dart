@@ -27,7 +27,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   void initState() {
     super.initState();
-    triggerNotification();
+    // triggerNotification();
     loadTheme();
     loadIntro();
   }

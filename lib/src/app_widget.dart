@@ -43,6 +43,7 @@ class _AppWidgetState extends State<AppWidget> {
     ntProvider.loadNotificationMode();
 
     if (!ntProvider.notificationIsOn) return;
+
     ntProvider.loadNotificationTime();
     Provider.of<NotificationsService>(context, listen: false)
         .showNotification(time: ntProvider.notificationTime);

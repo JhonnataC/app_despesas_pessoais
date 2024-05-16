@@ -55,8 +55,8 @@ class _TransactionFormState extends State<TransactionForm> {
       showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2020),
-        lastDate: DateTime.now().add(Duration(days: 30)),
+        firstDate: DateTime(DateTime.now().year, DateTime.now().month),
+        lastDate: DateTime.now(),
       ).then((pickedDate) {
         if (pickedDate == null) {
           return;

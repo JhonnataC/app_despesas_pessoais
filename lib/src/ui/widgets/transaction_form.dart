@@ -119,7 +119,7 @@ class _TransactionFormState extends State<TransactionForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Adicione um novo gasto',
+                  'Adicione um gasto',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 IconButton(

@@ -170,32 +170,29 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: color.background,
         child: const MyDrawer(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 10),
-            const DateItem(),
-            const SizedBox(height: 30),
-            Chart(
-              transactions: transactionsProvider.monthTransactions.where((tr) {
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 10),
+          const DateItem(),
+          const SizedBox(height: 30),
+          Chart(
+            transactions: transactionsProvider.monthTransactions.where((tr) {
+              return tr.categoryValue == _selectedIndex.toString();
+            }).toList(),
+            color: categories[_selectedIndex]['color'] as Color,
+          ),
+          Expanded(
+            child: TransactionList(
+              transactions: transactionsProvider.transactions.where((tr) {
                 return tr.categoryValue == _selectedIndex.toString();
               }).toList(),
               color: categories[_selectedIndex]['color'] as Color,
+              value: categories[_selectedIndex]['transactionValue'] as String,
+              onRemove: transactionsProvider.removeTransaction,
             ),
-            SizedBox(
-              height: 400,
-              child: TransactionList(
-                transactions: transactionsProvider.transactions.where((tr) {
-                  return tr.categoryValue == _selectedIndex.toString();
-                }).toList(),
-                color: categories[_selectedIndex]['color'] as Color,
-                value: categories[_selectedIndex]['transactionValue'] as String,
-                onRemove: transactionsProvider.removeTransaction,
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: categories[_selectedIndex]['color'] as Color,

@@ -58,7 +58,7 @@ class NotificationsService {
       NotificationDetails(
         android: androidDetails,
       ),
-      androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );

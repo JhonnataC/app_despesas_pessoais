@@ -15,12 +15,12 @@ class StatisticsScreen extends StatelessWidget {
         Provider.of<TransactionsListProvider>(context).monthTransactions;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text('Estatísticas Gerais'),
       ),
       drawer: Drawer(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         child: const MyDrawer(),
       ),
       body: SingleChildScrollView(
@@ -107,7 +107,7 @@ class CategoryItem extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.onSurface,
         borderRadius: BorderRadius.circular(15),
       ),
       margin: const EdgeInsets.all(7),

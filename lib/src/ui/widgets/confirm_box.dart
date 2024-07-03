@@ -23,8 +23,8 @@ class ConfirmBox extends StatelessWidget {
     return AlertDialog(
       titleTextStyle: Theme.of(context).textTheme.titleMedium,
       contentTextStyle: Theme.of(context).textTheme.bodyMedium,
-      backgroundColor: Theme.of(context).colorScheme.background,
-      surfaceTintColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
       title: const Text('Confirme!'),
       content: Text(message),
       actions: [

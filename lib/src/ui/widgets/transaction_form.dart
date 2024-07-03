@@ -85,14 +85,14 @@ class _TransactionFormState extends State<TransactionForm> {
                 style: TextButton.styleFrom(
                   textStyle: Theme.of(context).textTheme.bodySmall,
                   foregroundColor: Theme.of(context).colorScheme.primary,
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                 ),
                 onPressed: () => Navigator.of(context).pop(),
                 child: const Text('Ok'),
               ),
             ],
-            backgroundColor: Theme.of(context).colorScheme.background,
-            surfaceTintColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            surfaceTintColor: Theme.of(context).colorScheme.surface,
           );
         },
       );
@@ -203,7 +203,7 @@ class _TransactionFormState extends State<TransactionForm> {
               padding: const EdgeInsets.only(top: 15),
               isExpanded: true,
               borderRadius: BorderRadius.circular(10),
-              dropdownColor: Theme.of(context).colorScheme.background,
+              dropdownColor: Theme.of(context).colorScheme.surface,
               icon: Icon(
                 _valueDropDownButton == null
                     ? Icons.bookmark_outline_rounded
@@ -246,7 +246,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   style: ElevatedButton.styleFrom(
                     textStyle: Theme.of(context).textTheme.bodySmall,
                     foregroundColor: const Color(0XFF6365EE),
-                    backgroundColor: Theme.of(context).colorScheme.background,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                     disabledForegroundColor: Colors.grey,
                   ),
                   onPressed:

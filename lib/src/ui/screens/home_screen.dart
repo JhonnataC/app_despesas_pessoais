@@ -52,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context) {
         return AlertDialog(
           content: const NotificationSettings(),
-          backgroundColor: Theme.of(context).colorScheme.background,
-          surfaceTintColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Theme.of(context).colorScheme.surface,
         );
       },
     );
@@ -70,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
           content: TransactionForm(
             onSubmit: addTransaction,
           ),
-          backgroundColor: Theme.of(context).colorScheme.background,
-          surfaceTintColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Theme.of(context).colorScheme.surface,
         );
       },
     );
@@ -96,12 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final tmProvider = Provider.of<ThemeModeProvider>(context);
 
     return Scaffold(
-      backgroundColor: color.background,
+      backgroundColor: color.surface,
       appBar: AppBar(
         title: const Text('Minhas Despesas'),
         actions: [
           PopupMenuButton(
-            color: color.background,
+            color: color.surface,
             icon: const Icon(
               Icons.more_vert_rounded,
               color: Color(0XFFFFFFFF),
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(
-        backgroundColor: color.background,
+        backgroundColor: color.surface,
         child: const MyDrawer(),
       ),
       body: Column(
@@ -194,13 +194,29 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: categories[_selectedIndex]['color'] as Color,
-        onPressed: () => _openTrasactionFormModal(
+      floatingActionButton: 
+      InkWell(
+        onTap: () => _openTrasactionFormModal(
           context,
           transactionsProvider.addTransaction,
         ),
-        child: const Icon(Icons.add, color: Colors.white),
+        child: AnimatedContainer(
+          height: 55,
+          width: 55,
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+              color: categories[_selectedIndex]['color'] as Color,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  spreadRadius: 0.7,
+                  blurRadius: 6,
+                  offset: Offset(1, 4),
+                ),
+              ]),
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
       ),
       bottomNavigationBar: SizedBox(
         height: 80,

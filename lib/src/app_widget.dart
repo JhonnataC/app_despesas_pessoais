@@ -59,8 +59,7 @@ class _AppWidgetState extends State<AppWidget> {
 
   @override
   Widget build(BuildContext context) {
-    bool darkThemeIsOn =
-        Provider.of<ThemeModeProvider>(context).darkThemeIsOn;
+    bool darkThemeIsOn = Provider.of<ThemeModeProvider>(context).darkThemeIsOn;
     bool introScreenOn =
         Provider.of<IntroScreenProvider>(context).introScreenOn;
 

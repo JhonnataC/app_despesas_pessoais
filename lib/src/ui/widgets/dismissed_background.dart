@@ -7,20 +7,22 @@ class DismissedBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(colors: [
-          Theme.of(context).colorScheme.secondary,
-          Theme.of(context).colorScheme.primary,
+          theme.colorScheme.secondary,
+          theme.colorScheme.primary,
         ]),
       ),
       child: Container(
         height: 57,
         width: 57,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background.withOpacity(0.8),
+          color: theme.colorScheme.surface.withOpacity(0.8),
           borderRadius: BorderRadius.circular(9),
         ),
         child: Icon(

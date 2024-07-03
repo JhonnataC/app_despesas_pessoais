@@ -11,7 +11,7 @@ class MonthDetailsScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(data['date']),
       ),
@@ -77,9 +77,11 @@ class HistoryChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: theme.colorScheme.onSurface,
         borderRadius: const BorderRadius.all(
           Radius.circular(15),
         ),
@@ -93,7 +95,7 @@ class HistoryChart extends StatelessWidget {
               FittedBox(
                   child: Text(
                 'R\$ ${_monthTotalValue.truncate()}',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: theme.textTheme.bodySmall,
               )),
             ],
           ),
@@ -112,8 +114,8 @@ class HistoryChart extends StatelessWidget {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Theme.of(context).colorScheme.secondary,
-                            Theme.of(context).colorScheme.primary,
+                            theme.colorScheme.secondary,
+                            theme.colorScheme.primary,
                           ],
                         ),
                       ),
@@ -127,7 +129,7 @@ class HistoryChart extends StatelessWidget {
                     fit: FlexFit.tight,
                     child: ChartBar(
                       label: tr['day'].toString(),
-                      color: Theme.of(context).colorScheme.primary,
+                      color: theme.colorScheme.primary,
                       percentage: _monthTotalValue == 0
                           ? 0
                           : tr['value'] / _monthTotalValue,
@@ -151,6 +153,7 @@ class HistoryTransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     transactions.sort((a, b) => b.date.compareTo(a.date));
+    final theme = Theme.of(context);
 
     return ListView.builder(
         itemCount: transactions.length,
@@ -163,8 +166,8 @@ class HistoryTransactionList extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.secondary,
+                  theme.colorScheme.primary,
+                  theme.colorScheme.secondary,
                 ],
               ),
             ),
@@ -183,7 +186,7 @@ class HistoryTransactionList extends StatelessWidget {
                     ]),
                 child: CircleAvatar(
                   radius: 30,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  backgroundColor: theme.colorScheme.secondary,
                   child: const Padding(
                     padding: EdgeInsets.all(4.0),
                     child: Icon(Icons.monetization_on_outlined,

@@ -52,7 +52,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.onSurface,
         borderRadius: const BorderRadius.all(
           Radius.circular(15),
         ),

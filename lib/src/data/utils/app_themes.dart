@@ -7,8 +7,8 @@ class AppThemes {
           primary: const Color(0XFF6365EE),
           secondary: const Color(0XFF0ABBCF),
           tertiary: const Color(0XFF141321),
-          background: const Color(0XFFFFFFFF),
-          surface: const Color(0XFFF1F2F4),
+          surface: const Color(0XFFFFFFFF),
+          onSurface: const Color(0XFFF1F2F4),
         ),
     appBarTheme: ThemeData().appBarTheme.copyWith(
           titleTextStyle: const TextStyle(
@@ -70,8 +70,8 @@ class AppThemes {
           primary: const Color(0XFF6365EE),
           secondary: const Color(0XFF0ABBCF),
           tertiary: const Color(0XFF141321),
-          background: const Color(0XFF15141B),
-          surface: const Color(0XFF292C35),
+          surface: const Color(0XFF15141B),
+          onSurface: const Color(0XFF292C35),
         ),
     appBarTheme: ThemeData().appBarTheme.copyWith(
           titleTextStyle: const TextStyle(

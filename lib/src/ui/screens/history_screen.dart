@@ -36,27 +36,30 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     final historyProvider = Provider.of<TransactionsHistoryProvider>(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: theme.colorScheme.surface,
         appBar: AppBar(
           title: const Text('Histórico'),
           actions: [
             PopupMenuButton(
+              color: theme.colorScheme.surface,
               itemBuilder: (context) => [
                 PopupMenuItem(
                     onTap: () => _showConfirmBox(
                         () => historyProvider.clearTransactionsHistory()),
+                    
                     child: Row(
                       children: [
                         Icon(
                           Icons.clear_all_rounded,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: theme.colorScheme.secondary,
                         ),
                         const SizedBox(width: 10),
                         Text(
                           'Limpar Histórico',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ],
                     )),
@@ -65,7 +68,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ],
         ),
         drawer: Drawer(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: theme.colorScheme.surface,
           child: const MyDrawer(),
         ),
         body: historyProvider.history.isEmpty
@@ -101,19 +104,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       child: Container(
                         margin: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
+                            color: theme.colorScheme.onSurface,
                             borderRadius: BorderRadius.circular(15)),
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(8),
                           leading: CircleAvatar(
                             backgroundColor:
-                                Theme.of(context).colorScheme.primary,
+                                theme.colorScheme.primary,
                             child: const Icon(Icons.calendar_month_sharp,
                                 color: Colors.white),
                           ),
                           title: Text(
                             dateFormated,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: theme.textTheme.bodyMedium,
                           ),
                         ),
                       ),
